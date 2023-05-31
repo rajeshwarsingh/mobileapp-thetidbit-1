@@ -20,6 +20,7 @@ import {
   FONT_LIGHT,
   momentCalendarConfig,
 } from '../constants/Constants';
+import AdMobComponent from '../components/AdMobComponent';
 
 export default class NewsCard extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -81,13 +82,9 @@ export default class NewsCard extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.top}>
-          {/* <FastImage
-            style={{flex: 1}}
-            source={{
-              uri: image_url,
-            }}
-            contentFit={FastImage.contentFit.cover}
-          /> */}
+          <View>
+            <AdMobComponent />
+          </View>
           <Image
             source={{ uri: image_url }}
             style={{ flex: 1 }}
@@ -103,7 +100,15 @@ export default class NewsCard extends Component {
             <Button title="Share" onPress={shareFile} />
             {this.getByLineText()}
           </Text>
+          <View
+        style={{
+          height:40
+        }}
+      >
+      
+      </View>
         </View>
+        
       </View>
     );
   }

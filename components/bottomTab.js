@@ -80,6 +80,23 @@ const BottomTab = () => {
         },
       }}
     >
+          <Tab.Screen
+        name="videoScreen"
+        component={VideoScreen}
+        options={{
+          title: tr("video"),
+          tabBarActiveTintColor: Colors.primary,
+          headerShown: false,
+          tabBarIcon: ({ focused, size }) => (
+            <Ionicons
+              name={"caret-forward-circle-outline"}
+              color={focused ? Colors.primary : Colors.grey}
+              size={22}
+            />
+          ),
+        }}
+      />
+
       <Tab.Screen
         name={isRtl ? "profileScreen" : "homeScreen"}
         component={isRtl ? ProfileScreen : HomeScreen}
@@ -113,23 +130,6 @@ const BottomTab = () => {
           ),
         }}
       /> */}
-
-      <Tab.Screen
-        name="videoScreen"
-        component={VideoScreen}
-        options={{
-          title: tr("video"),
-          tabBarActiveTintColor: Colors.primary,
-          headerShown: false,
-          tabBarIcon: ({ focused, size }) => (
-            <Ionicons
-              name={"caret-forward-circle-outline"}
-              color={focused ? Colors.primary : Colors.grey}
-              size={22}
-            />
-          ),
-        }}
-      />
 
       {/* <Tab.Screen
         name={isRtl ? "categoryScreen" : "weatherScreen"}

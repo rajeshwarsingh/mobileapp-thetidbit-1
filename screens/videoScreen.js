@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -19,7 +19,8 @@ import { Colors, Fonts, Default } from "../constants/style";
 
 import { getBreakingNews } from '../api/index';
 
-import {getScreenWidth, getScreenHeight} from '../helpers/DimensionsHelper';
+import { getScreenWidth, getScreenHeight } from '../helpers/DimensionsHelper';
+
 const SCREEN_WIDTH = getScreenWidth();
 
 import NewsCard from '../components/NewsCard';
@@ -36,7 +37,7 @@ const VideoScreen = (props) => {
 
   useEffect(() => {
     getBreakingNews().then((response) => {
-      let formatedBreakingNews = response?.data.map((news)=>{
+      let formatedBreakingNews = response?.data.map((news) => {
         return {
           source_name: news.author,
           title: news.title,
@@ -45,14 +46,14 @@ const VideoScreen = (props) => {
           description: news.description,
           bottom_headline: news.description,
           bottom_text: "",
-          sourceLink:news.sourceLink,
+          sourceLink: news.sourceLink,
         }
       })
       setBreakingNews(formatedBreakingNews);
     });
   }, []);
-  
-  const _handlePressButtonAsync = async (e,item) => {
+
+  const _handlePressButtonAsync = async (e, item) => {
     let result = await WebBrowser.openBrowserAsync(item.sourceLink);
   };
 
@@ -61,7 +62,7 @@ const VideoScreen = (props) => {
     // alert(item)
     return (
       <TouchableOpacity
-        onPress={(e)=>_handlePressButtonAsync(e,item)}
+        onPress={(e) => _handlePressButtonAsync(e, item)}
         style={{
           ...Default.shadow,
           backgroundColor: Colors.white,
@@ -75,7 +76,7 @@ const VideoScreen = (props) => {
         }}
       >
         <Image source={{ uri: item.image ? item.image : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }} style={{ width: 131, height: 148 }} />
-         <View
+        <View
           style={{
             height: 30,
             width: 30,
@@ -159,9 +160,9 @@ const VideoScreen = (props) => {
   //   bottom_headline,
   //   bottom_text,
   // } = this.props.data.news_obj;
-  
 
-  const renderItem = ({item, index}) => {
+
+  const renderItem = ({ item, index }) => {
     return (
       <NewsCard key={String(index)} data={item} />
     );
@@ -185,7 +186,6 @@ const VideoScreen = (props) => {
           {tr("video")}
         </Text>
       </View>
-
       {/* <FlatList
         style={{ backgroundColor: Colors.white }}
         data={breakingNews}
@@ -195,9 +195,9 @@ const VideoScreen = (props) => {
       /> */}
 
       <View style={styles.container}>
-      <Carousel
-        data={breakingNews}
-        renderItem={renderItem}
+        <Carousel
+          data={breakingNews}
+          renderItem={renderItem}
           sliderWidth={SCREEN_WIDTH}
           sliderHeight={getScreenHeight()}
           itemWidth={SCREEN_WIDTH}
@@ -209,8 +209,8 @@ const VideoScreen = (props) => {
           swipeThreshold={70}
           nestedScrollEnabled
           windowSize={5}
-      />
-    </View>
+        />
+      </View>
 
     </SafeAreaView>
   );

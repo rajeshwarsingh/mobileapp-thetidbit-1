@@ -6,6 +6,7 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 import { withTranslation } from "react-i18next";
+import 'expo-dev-client';
 import { NavigationContainer } from "@react-navigation/native";
 import SplashScreen from "./screens/auth/splashScreen";
 import OnboardingScreen from "./screens/auth/onboardingScreen";
@@ -203,6 +204,7 @@ const MainNavigation = (props) => {
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
+      {/* <AdMobComponent/> */}
     </NavigationContainer>
   );
 };

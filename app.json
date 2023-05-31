@@ -1,13 +1,9 @@
 {
-  "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-9155008277126927~8333991217",
-    "ios_app_id": "ca-app-pub-xxxxxxxx~xxxxxxxx"
-  },
   "expo": {
     "scheme": "thetidbit",
     "name": "thetidbit",
     "slug": "mobileapp-thetidbit",
-    "version": "3.0.39",
+    "version": "3.0.41",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -48,14 +44,11 @@
           ]
         }
       ],
-      "versionCode": 67,
+      "versionCode": 69,
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      },
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-9155008277126927~8333991217"
       }
     },
     "web": {
@@ -66,5 +59,8 @@
         "projectId": "d387da48-df44-42c3-8ba7-32a994a8c149"
       }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-9155008277126927~8333991217"
   }
 }

@@ -88,3 +88,7 @@ https://github.com/SudoPlz/sp-react-native-in-app-updates/blob/v1/Example/App.ts
 
 ----------------------------------------
 https://github.com/Gopalakrishnan-V/inshorts-clone/blob/master/src/components/NewsCard.js
+
+
+
+https://www.youtube.com/watch?v=myDDG54OvkE

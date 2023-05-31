@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-// import { AdMobBanner } from 'expo-ads-admob';
 import React, { useState, useEffect } from "react";
 import * as Notifications from 'expo-notifications'; // NOTIFICATION CODE
 import * as WebBrowser from 'expo-web-browser';
@@ -18,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Fonts, Default } from "../constants/style";
 import { getNews, saveExpoPushToken } from '../api/index';
-// import { GAMBannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';  // FOR ADS GOOGLE
+import AdMobComponent from '../components/AdMobComponent';
 
 const HomeScreen = (props) => {
 
@@ -1042,6 +1041,7 @@ const HomeScreen = (props) => {
         onDidFailToReceiveAdWithError={(error) => console.error('error******************** :',error)}
       /> */}
       </View>
+      
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
@@ -1059,7 +1059,7 @@ const HomeScreen = (props) => {
             <Text style={{ ...Fonts.Bold16Primary }}>{tr("seeAll")}</Text>
           </TouchableOpacity>
         </View>
-
+        
         <FlatList
           horizontal
           nestedScrollEnabled
@@ -1077,6 +1077,7 @@ const HomeScreen = (props) => {
           keyExtractor={(item) => item.key}
           showsHorizontalScrollIndicator={false}
         />
+        <AdMobComponent/>
 
         <View
           style={{
@@ -1086,6 +1087,7 @@ const HomeScreen = (props) => {
             marginBottom: Default.fixPadding,
           }}
         >
+        
           <Text style={{ ...Fonts.Bold18Black }}>{tr("localNews")}</Text>
           <TouchableOpacity
             onPress={() => props.navigation.navigate("localNewsScreen")}
