@@ -20,7 +20,7 @@ import {
   FONT_LIGHT,
   momentCalendarConfig,
 } from '../constants/Constants';
-import AdMobComponent from '../components/AdMobComponent';
+import {BannerAds} from '../components/AdMobComponent';
 
 export default class NewsCard extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -83,7 +83,7 @@ export default class NewsCard extends Component {
       <View style={styles.container}>
         <View style={styles.top}>
           <View>
-            <AdMobComponent />
+            <BannerAds />
           </View>
           <Image
             source={{ uri: image_url }}

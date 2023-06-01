@@ -1,9 +1,11 @@
 import axios from "axios";
+import config from '../config';
+const {apiUrl} = config;
 
 export const getNews = async () => {
   try {
     const source = axios.CancelToken.source();
-    const url = `https://ttb-api-nextjs.vercel.app/api/news`;
+    const url = `${apiUrl}/news`;
     const response = await axios.get(url, { cancelToken: source.token });
     return response.data;
   } catch (error) {
@@ -19,7 +21,7 @@ export const getNews = async () => {
 export const getBreakingNews = async () => {
   try {
     const source = axios.CancelToken.source();
-    const url = `https://ttb-api-nextjs.vercel.app/api/news-breaking`;
+    const url = `${apiUrl}/news-breaking`;
     const response = await axios.get(url, { cancelToken: source.token });
     return response.data;
   } catch (error) {
@@ -34,7 +36,7 @@ export const getBreakingNews = async () => {
 export const getHealth = async () => {
   try {
     const source = axios.CancelToken.source();
-    const url = `https://ttb-api-nextjs.vercel.app/api/news-health`;
+    const url = `${apiUrl}/news-health`;
     const response = await axios.get(url, { cancelToken: source.token });
     return response.data;
   } catch (error) {
@@ -49,7 +51,7 @@ export const getHealth = async () => {
 export const getEntertainment = async () => {
   try {
     const source = axios.CancelToken.source();
-    const url = `https://ttb-api-nextjs.vercel.app/api/news-entertainment`;
+    const url = `${apiUrl}/news-entertainment`;
     const response = await axios.get(url, { cancelToken: source.token });
     return response.data;
   } catch (error) {
@@ -64,7 +66,7 @@ export const getEntertainment = async () => {
 export const getTechnology = async () => {
   try {
     const source = axios.CancelToken.source();
-    const url = `https://ttb-api-nextjs.vercel.app/api/news-technology`;
+    const url = `${apiUrl}/news-technology`;
     const response = await axios.get(url, { cancelToken: source.token });
     return response.data;
   } catch (error) {
@@ -79,7 +81,7 @@ export const getTechnology = async () => {
 export const getBusiness = async () => {
   try {
     const source = axios.CancelToken.source();
-    const url = `https://ttb-api-nextjs.vercel.app/api/news-business`;
+    const url = `${apiUrl}/news-business`;
     const response = await axios.get(url, { cancelToken: source.token });
     return response.data;
   } catch (error) {
@@ -94,7 +96,7 @@ export const getBusiness = async () => {
 export const saveExpoPushToken = async (token) => {
   try {
     const source = axios.CancelToken.source();
-    const url = `https://ttb-api-nextjs.vercel.app/api/save-expo-push-token?token=${token}`;
+    const url = `${apiUrl}/save-expo-push-token?token=${token}`;
     const response = await axios.get(url, { cancelToken: source.token });
     return response.data;
   } catch (error) {

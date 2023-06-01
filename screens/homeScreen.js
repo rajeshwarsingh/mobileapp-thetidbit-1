@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Fonts, Default } from "../constants/style";
 import { getNews, saveExpoPushToken } from '../api/index';
-import AdMobComponent from '../components/AdMobComponent';
+import {BannerAds, InterstitialAds} from '../components/AdMobComponent';
 
 const HomeScreen = (props) => {
 
@@ -987,6 +987,8 @@ const HomeScreen = (props) => {
         </View>
       </View>
 
+      <InterstitialAds/>
+
       <TouchableOpacity
         // onPress={() => props.navigation.navigate("searchScreen")}
         style={{
@@ -1023,15 +1025,6 @@ const HomeScreen = (props) => {
           {tr("search")}
         </Text>
       </TouchableOpacity>
-      {/* <GAMBannerAd
-    unitId={TestIds.BANNER}
-    sizes={[BannerAdSize.FULL_BANNER]}
-    requestOptions={{
-      requestNonPersonalizedAdsOnly: true,
-    }}
-  /> */}
-
-
       <View>
 
         {/* <AdMobBanner
@@ -1077,7 +1070,8 @@ const HomeScreen = (props) => {
           keyExtractor={(item) => item.key}
           showsHorizontalScrollIndicator={false}
         />
-        <AdMobComponent/>
+        <BannerAds/>
+        {/* <InterstitialAds/> */}
 
         <View
           style={{

@@ -3,7 +3,7 @@
     "scheme": "thetidbit",
     "name": "thetidbit",
     "slug": "mobileapp-thetidbit",
-    "version": "3.0.41",
+    "version": "3.0.42",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -44,7 +44,7 @@
           ]
         }
       ],
-      "versionCode": 69,
+      "versionCode": 70,
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

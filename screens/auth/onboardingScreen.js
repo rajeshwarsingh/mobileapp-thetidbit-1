@@ -10,7 +10,6 @@ import {
 import AppIntroSlider from "react-native-app-intro-slider";
 import { Colors, Fonts, Default } from "../../constants/style";
 import { useTranslation } from "react-i18next";
-// import AdMobComponent from '../../components/AdMobComponent';
 
 const { width } = Dimensions.get("window");
 
@@ -149,7 +148,6 @@ const OnboardingScreen = (props) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
-      {/* <AdMobComponent/> */}
       <AppIntroSlider
         data={slides}
         renderItem={RenderItem}

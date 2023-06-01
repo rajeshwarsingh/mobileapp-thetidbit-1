@@ -204,7 +204,6 @@ const MainNavigation = (props) => {
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
-      {/* <AdMobComponent/> */}
     </NavigationContainer>
   );
 };

@@ -1,5 +1,9 @@
-import { SafeAreaView, Image } from "react-native";
+import { SafeAreaView, Image,Dimensions } from "react-native";
 import React from "react";
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
 import { Colors } from "../../constants/style";
 
 const SplashScreen = (props) => {
@@ -16,7 +20,7 @@ const SplashScreen = (props) => {
         alignItems: "center",
       }}
     >
-      {/* <Image source={require("../../assets/image/News.png")} /> */}
+      <Image style={{ width: screenWidth, height: screenHeight }}  source={require("../../assets/splash.png")} />
     </SafeAreaView>
   );
 };
