@@ -33,6 +33,18 @@ eas build:configure
 
 eas build --platform android
 
+## FOLLOW THE BELOW STEPS TO RUN THE PROJECT FOR DEVELOPMENT MODE USING EAS- 2023
+https://www.youtube.com/watch?v=myDDG54OvkE 
+
+# Follow the link to creade development build
+  https://docs.expo.dev/develop/development-builds/installation/
+  npx expo install expo-dev-client
+  got to app.js and import "import 'expo-dev-client';"
+  eas login
+  eas build --profile development --platform android // it will create the Dev build
+# once the build cureated it will be availabe on the expo download it and install it in your device
+# then run : npx expo start --dev-client
+
 
 ## create apk command
 
