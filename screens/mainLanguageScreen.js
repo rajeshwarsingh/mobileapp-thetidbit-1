@@ -15,7 +15,8 @@ import { Colors, Fonts, Default } from "../constants/style";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Loader from "../components/loader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import {updateUserPrefLang} from '../api/index'
+import {getUserProfile} from '../utils/index'
 const MainLanguageScreen = (props) => {
   const [visible, setVisible] = useState(false);
 
@@ -89,13 +90,32 @@ const MainLanguageScreen = (props) => {
     );
   }
 
-  const handleUpdate = () => {
+  const updateAndReset = async () => {
+    let profile = await getUserProfile();
+      let reqBody = { mobile:profile.mobile, prefLanguage: selectedLanguage };
+      await updateUserPrefLang(reqBody);
+      let userData = await AsyncStorage.getItem('userDetails')
+      console.log("languange screen user data&&&&&&&&&&&&&&&&&&&&&&&&&&&", userData)
+      userData = JSON.parse(userData)
+      userData.prefLanguage = selectedLanguage;
+      await AsyncStorage.setItem('userDetails', JSON.stringify(userData));
+    
+  }
+
+  const handleUpdate = async () => {
     setVisible(true);
-    setTimeout(() => {
+    try {
+      await updateAndReset();
+      setTimeout(() => {
+        setVisible(false);
+        onChangeLang(selectedLanguage);
+        props.navigation.navigate("profileScreen");
+      }, 1500);
+    } catch (e) {
       setVisible(false);
-      onChangeLang(selectedLanguage);
-      props.navigation.navigate("profileScreen");
-    }, 1500);
+      alert('Unable to udate, Please try again later!')
+      console.log('Error in language update :', e);
+    }
   };
 
   return (
@@ -130,9 +150,9 @@ const MainLanguageScreen = (props) => {
         >
           {languageOpt({ name: "English", lang: "en" })}
           {languageOpt({ name: "हिन्दी", lang: "hi" })}
-          {languageOpt({ name: "bahasa Indonesia", lang: "id" })}
-          {languageOpt({ name: "中国人", lang: "ch" })}
-          {languageOpt({ name: "عربي", lang: "ar" })}
+          {languageOpt({ name: "मराठी", lang: "mr" })}
+          {/* {languageOpt({ name: "中国人", lang: "ch" })} */}
+          {/* {languageOpt({ name: "عربي", lang: "ar" })} */}
         </View>
       </ScrollView>
       <Loader visible={visible} />

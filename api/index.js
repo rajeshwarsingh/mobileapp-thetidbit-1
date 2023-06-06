@@ -17,7 +17,6 @@ export const getNews = async () => {
   }
 };
 
-
 export const getBreakingNews = async () => {
   try {
     const source = axios.CancelToken.source();
@@ -106,4 +105,51 @@ export const saveExpoPushToken = async (token) => {
       // Handle error
     }
   }
+};
+
+export const saveUser = async (data) => {
+  // return {}
+  const source = axios.CancelToken.source();
+    const url = `${apiUrl}/saveUser`;
+    console.log("@@@@@@@@@@@@@@@@@",url)
+    const response = await axios.post(url, data,{
+      cancelToken: source.token,
+    });
+    
+    return response.data;
+};
+
+export const getUser = async ({ mobile }) => {
+
+  // return null
+  return {
+    "_id": "647e1f4ad8f6f42c13a15e14",
+    "name": "Rajan",
+    "mobile": "8983712448",
+    "email": "rajan23024@gmail.com",
+    "createdAt": "2023-06-05T17:45:46.089Z",
+    "__v": 0,
+    "prefLanguage": "English"
+}
+  // return {}
+  const source = axios.CancelToken.source();
+  const url = `${apiUrl}/saveUser?mobile=${mobile}`;
+  
+  const response = await axios.get(url, {
+    cancelToken: source.token,
+  });
+
+  return response.data;
+};
+
+
+export const updateUserPrefLang = async (data) => {
+  const source = axios.CancelToken.source();
+    const url = `${apiUrl}/prefLanguage`;
+    console.log("check saveuser api*************", url, data)
+    const response = await axios.post(url, data,{
+      cancelToken: source.token,
+    });
+    
+    return response.data;
 };

@@ -9,7 +9,7 @@ import {
   Modal,
   Dimensions,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import Foundation from "react-native-vector-icons/Foundation";
@@ -17,6 +17,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import { useTranslation } from "react-i18next";
 import { Colors, Fonts, Default } from "../constants/style";
 import Stars from "react-native-stars";
+import { getUserProfile } from '../utils/index';
 
 const { width } = Dimensions.get("window");
 
@@ -30,6 +31,19 @@ const ProfileScreen = (props) => {
   }
   const [visible, setVisible] = useState(false);
   const [star, setStar] = useState(false);
+  
+  // GET USER PROFILE INFORMATION FROM LOCAL STORAGE
+  const [userProfile, setUserProfile] = useState('')
+
+  useEffect(()=>{
+    fetchUserProfile();
+  },[])
+
+  const fetchUserProfile = async()=>{
+    let profileData = await getUserProfile();
+    setUserProfile(profileData);
+  }
+    // ----GET USER PROFILE INFORMATION END----
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
@@ -67,8 +81,8 @@ const ProfileScreen = (props) => {
               alignItems: isRtl ? "flex-end" : "flex-start",
             }}
           >
-            <Text style={{ ...Fonts.Bold16Black }}>Guest User</Text>
-            <Text style={{ ...Fonts.Medium16Grey }}>+91(1258392334)</Text>
+            <Text style={{ ...Fonts.Bold16Black }}>{userProfile?.name}</Text>
+            <Text style={{ ...Fonts.Medium16Grey }}>{userProfile?.mobile}</Text>
           </View>
         </View>
 
@@ -111,7 +125,7 @@ const ProfileScreen = (props) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => props.navigation.navigate("channelScreen")}
           style={{
             flexDirection: isRtl ? "row-reverse" : "row",
@@ -148,9 +162,9 @@ const ProfileScreen = (props) => {
               marginHorizontal: Default.fixPadding * 1.5,
             }}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => props.navigation.navigate("bookmarkScreen")}
           style={{
             flexDirection: isRtl ? "row-reverse" : "row",
@@ -191,7 +205,7 @@ const ProfileScreen = (props) => {
               marginHorizontal: Default.fixPadding * 1.5,
             }}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity
           onPress={() => props.navigation.navigate("settingScreen")}
@@ -279,7 +293,7 @@ const ProfileScreen = (props) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => setStar(true)}
           style={{
             flexDirection: isRtl ? "row-reverse" : "row",
@@ -316,7 +330,7 @@ const ProfileScreen = (props) => {
               marginHorizontal: Default.fixPadding * 1.5,
             }}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <Modal animationType="fade" transparent={true} visible={star}>
           <View

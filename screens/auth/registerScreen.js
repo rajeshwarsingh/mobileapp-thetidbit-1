@@ -8,14 +8,18 @@ import {
   Image,
   Dimensions,
   TextInput,
+  Alert,
+  Button,
 } from "react-native";
 import React, { useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Modal from 'react-native-modal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, Fonts, Default } from "../../constants/style";
 import { useTranslation } from "react-i18next";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Loader from "../../components/loader";
-
+import { saveUser } from '../../api/index';
 const { height } = Dimensions.get("window");
 
 const RegisterScreen = (props) => {
@@ -27,18 +31,67 @@ const RegisterScreen = (props) => {
     return t(`registerScreen:${key}`);
   }
 
-  const [textNo, onChangeTextNo] = useState();
-  const [textName, onChangeTextName] = useState();
-  const [textEmail, onChangeTextEmail] = useState();
+  const [mobile, onChangeMobile] = useState();
+  const [name, onChangeName] = useState();
+  const [email, onChangeEmail] = useState();
+  const [isAlertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const [visible, setVisible] = useState(false);
 
-  const handleRegister = () => {
+  const handleRegister = async() => {
+    if (!name) {
+      setAlertMessage('Please enter your name.');
+      setAlertVisible(true);
+      return;
+    }
+
+    if (!mobile) {
+      setAlertMessage('Please enter your mobile number.');
+      setAlertVisible(true);
+      return;
+    }
+
+    if (!email) {
+      setAlertMessage('Please enter your email address.');
+      setAlertVisible(true);
+      return;
+    }
+
+    if (!/^[a-zA-Z ]+$/.test(name)) {
+      setAlertMessage('Invalid name. Only alphabets and spaces are allowed.');
+      setAlertVisible(true);
+      return;
+    }
+
+    if (!/^\d{10}$/.test(mobile)) {
+      setAlertMessage('Invalid mobile number. It should be a 10-digit number.');
+      setAlertVisible(true);
+      return;
+    }
+
+    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      setAlertMessage('Invalid email address.');
+      setAlertVisible(true);
+      return;
+    }
     setVisible(true);
-    setTimeout(() => {
-      setVisible(false);
-      props.navigation.navigate("verificationScreen");
-    }, 1500);
+    try {
+      await saveUser({ name, mobile:`+91${mobile}`, email });
+      await AsyncStorage.setItem('userDetails', JSON.stringify({ name,  mobile: `+91${mobile}`, email }));
+      setTimeout(() => {
+        setVisible(false);
+        return props.navigation.navigate("verificationScreen", { mobile: `+91${mobile}` });
+      }, 1500);
+
+    } catch (e) {
+      // LOG THE ERROR HERE
+    }
+
+  };
+
+  const handleAlertClose = () => {
+    setAlertVisible(false);
   };
 
   return (
@@ -96,9 +149,9 @@ const RegisterScreen = (props) => {
             <TextInput
               placeholder={tr("name")}
               placeholderTextColor={Colors.grey}
-              onChangeText={onChangeTextName}
+              onChangeText={onChangeName}
               selectionColor={Colors.primary}
-              value={textName}
+              value={name}
               style={{
                 ...Fonts.SemiBold16Black,
                 flex: 9.3,
@@ -130,10 +183,10 @@ const RegisterScreen = (props) => {
             <TextInput
               placeholder={tr("email")}
               placeholderTextColor={Colors.grey}
-              onChangeText={onChangeTextEmail}
+              onChangeText={onChangeEmail}
               selectionColor={Colors.primary}
               keyboardType="email-address"
-              value={textEmail}
+              value={email}
               style={{
                 ...Fonts.SemiBold16Black,
                 flex: 9.3,
@@ -165,10 +218,10 @@ const RegisterScreen = (props) => {
             <TextInput
               placeholder={tr("mobile")}
               placeholderTextColor={Colors.grey}
-              onChangeText={onChangeTextNo}
+              onChangeText={onChangeMobile}
               selectionColor={Colors.primary}
               keyboardType="number-pad"
-              value={textNo}
+              value={mobile}
               maxLength={10}
               style={{
                 ...Fonts.SemiBold16Black,
@@ -202,8 +255,9 @@ const RegisterScreen = (props) => {
           >
             <Text style={{ ...Fonts.ExtraBold18White }}>{tr("register")}</Text>
           </TouchableOpacity>
+          
 
-          <View
+          {/* <View
             style={{
               flexDirection: "row",
               marginBottom: Default.fixPadding * 2,
@@ -236,9 +290,9 @@ const RegisterScreen = (props) => {
                 alignSelf: "center",
               }}
             />
-          </View>
+          </View> */}
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               flexDirection: "row",
             }}
@@ -328,8 +382,21 @@ const RegisterScreen = (props) => {
                 }}
               />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
+        <Modal isVisible={isAlertVisible} onBackdropPress={handleAlertClose}>
+        <View style={{ backgroundColor: 'white', padding: 16 }}>
+          <Text>{alertMessage}</Text>
+          <Button
+            title="OK"
+            // width='20px'
+            width='400'
+            onPress={handleAlertClose}
+            color="red" // Set the color of the button
+            style={{height:100, marginTop: 8, width: 20}} // Adjust the margin
+          />
+        </View>
+      </Modal>
       </ScrollView>
     </SafeAreaView>
   );

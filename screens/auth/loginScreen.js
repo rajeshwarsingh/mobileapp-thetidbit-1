@@ -13,7 +13,9 @@ import { useTranslation } from "react-i18next";
 import React, { useState } from "react";
 import IntlPhoneInput from "react-native-intl-phone-input";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from "../../components/loader";
+import {getUser} from "../../api/index"
 
 const { height } = Dimensions.get("window");
 
@@ -27,13 +29,45 @@ const LoginScreen = (props) => {
   }
 
   const [visible, setVisible] = useState(false);
+  const [mobile, setMobile] = useState("");
 
-  const handleLogin = () => {
-    setVisible(true);
-    setTimeout(() => {
+  const handleLogin = async() => {
+    // console.log("@@@@@@@@@@@@@@@@mobile :", mobile)
+    if (!mobile) {
+      alert('Please enter your mobile number.');
+      return;
+    }
+
+    // if (!/^\d{10}$/.test(mobile)) {
+    //   alert('Invalid mobile number. It should be a 10-digit number.');
+    //   return;
+    // }
+    
+    try {
+      setVisible(true);
+      let userData = await getUser({ mobile:`+91${mobile.trim()}` });
+      if(!userData){
+        setVisible(false);
+        return props.navigation.navigate("registerScreen",{mobile:`+91${mobile.trim()}`, source:'login' });
+      }
+      await AsyncStorage.setItem('userDetails', JSON.stringify(userData));
+      setTimeout(() => {
+        setVisible(false);
+        
+        return props.navigation.navigate("verificationScreen",{mobile:`+91${mobile.trim()}`,source:'login'});
+      }, 1500);
+
+    } catch (e) {
       setVisible(false);
-      props.navigation.navigate("registerScreen");
-    }, 1500);
+      console.log("error in login", e);
+      alert('Error in login')
+    }
+
+    
+  };
+
+  const handlePhoneNumberChange = (phoneNumberData) => {
+    setMobile(phoneNumberData.phoneNumber);
   };
 
   return (
@@ -69,6 +103,7 @@ const LoginScreen = (props) => {
 
           <IntlPhoneInput
             placeholder={tr("mobileNo")}
+            onChangeText={handlePhoneNumberChange}
             defaultCountry="IN"
             containerStyle={{
               ...Default.shadow,
@@ -103,7 +138,7 @@ const LoginScreen = (props) => {
             <Text style={{ ...Fonts.ExtraBold18White }}>{tr("login")}</Text>
           </TouchableOpacity>
 
-          <View
+          {/* <View
             style={{
               flexDirection: "row",
               marginBottom: Default.fixPadding * 2,
@@ -136,9 +171,9 @@ const LoginScreen = (props) => {
                 alignSelf: "center",
               }}
             />
-          </View>
+          </View> */}
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               flexDirection: "row",
             }}
@@ -181,9 +216,9 @@ const LoginScreen = (props) => {
                 }}
               />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               flexDirection: "row",
               marginTop: Default.fixPadding * 2,
@@ -227,7 +262,7 @@ const LoginScreen = (props) => {
                 }}
               />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </ScrollView>
     </SafeAreaView>

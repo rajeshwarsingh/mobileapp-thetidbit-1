@@ -1,6 +1,7 @@
 import {
   Text,
   View,
+  Button,
   SafeAreaView,
   TouchableOpacity,
   Image,
@@ -11,12 +12,16 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Modal from 'react-native-modal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, Fonts, Default } from "../../constants/style";
 import Loader from "../../components/loader";
+import {updateUserPrefLang} from '../../api/index'
 
 const { height } = Dimensions.get("window");
 
 const LanguageScreen = (props) => {
+  const { mobile } = props.route.params;
   const { t, i18n } = useTranslation();
 
   const isRtl = i18n.dir() == "rtl";
@@ -24,16 +29,6 @@ const LanguageScreen = (props) => {
   function tr(key) {
     return t(`languageScreen:${key}`);
   }
-  const [visible, setVisible] = useState(false);
-
-  const handleLanguage = () => {
-    setVisible(true);
-    setTimeout(() => {
-      setVisible(false);
-      props.navigation.navigate("bottomTab");
-    }, 1500);
-  };
-
   const language = [
     {
       id: "1",
@@ -45,26 +40,43 @@ const LanguageScreen = (props) => {
     },
     {
       id: "3",
-      text: tr("gujarati"),
-    },
-    {
-      id: "4",
       text: tr("marathi"),
-    },
-    {
-      id: "5",
-      text: tr("tamil"),
-    },
-    {
-      id: "6",
-      text: tr("arabic"),
-    },
-    {
-      id: "7",
-      text: tr("spanish"),
-    },
+    }
   ];
   const [selectedLanguage, setSelectedLanguage] = useState(tr("english"));
+  const [visible, setVisible] = useState(false);
+  
+  const [isAlertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+
+  const handleLanguage = async() => {
+
+    if (!selectedLanguage) {
+      setAlertMessage('Please enter your prefered language.');
+      setAlertVisible(true);
+      return;
+    }
+
+    try {
+      setVisible(true);
+      let reqBody = { mobile, prefLanguage: selectedLanguage };
+      await updateUserPrefLang(reqBody);
+      let userData = await AsyncStorage.getItem('userDetails')
+      console.log("languange screen user data&&&&&&&&&&&&&&&&&&&&&&&&&&&", userData)
+      userData = JSON.parse(userData)
+      userData.prefLanguage = selectedLanguage;
+      await AsyncStorage.setItem('userDetails', JSON.stringify(userData));
+      setTimeout(() => {
+        setVisible(false);
+        props.navigation.navigate("bottomTab");
+      }, 1500);
+    } catch (e) {
+      console.log('error in laguage saving', e)
+      setAlertMessage('EZrror in laguage saving');
+      setAlertVisible(false);
+      return;
+    }
+  };
 
   const renderItemLanguage = ({ item }) => {
     return (
@@ -95,6 +107,10 @@ const LanguageScreen = (props) => {
         />
       </TouchableOpacity>
     );
+  };
+
+  const handleAlertClose = () => {
+    setAlertVisible(false);
   };
 
   return (
@@ -140,6 +156,19 @@ const LanguageScreen = (props) => {
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
       />
+      <Modal isVisible={isAlertVisible} onBackdropPress={handleAlertClose}>
+        <View style={{ backgroundColor: 'white', padding: 16 }}>
+          <Text>{alertMessage}</Text>
+          <Button
+            title="OK"
+            // width='20px'
+            width='400'
+            onPress={handleAlertClose}
+            color="red" // Set the color of the button
+            style={{height:100, marginTop: 8, width: 20}} // Adjust the margin
+          />
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };

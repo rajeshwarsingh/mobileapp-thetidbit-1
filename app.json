@@ -58,7 +58,8 @@
       "eas": {
         "projectId": "d387da48-df44-42c3-8ba7-32a994a8c149"
       }
-    }
+    },
+    "plugins": ["@react-native-firebase/app", "@react-native-firebase/auth"]
   },
   "react-native-google-mobile-ads": {
     "android_app_id": "ca-app-pub-9155008277126927~8333991217"

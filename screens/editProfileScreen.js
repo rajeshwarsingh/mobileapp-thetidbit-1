@@ -20,6 +20,9 @@ import { BottomSheet } from "react-native-btr";
 import Toast from "react-native-root-toast";
 import * as ImagePicker from "expo-image-picker";
 import { Camera } from "expo-camera";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getUserProfile } from '../utils/index';
+import { saveUser } from '../api/index';
 
 const { width } = Dimensions.get("window");
 
@@ -152,11 +155,29 @@ export default function EditProfileScreen(props) {
     return t(`editProfileScreen:${key}`);
   }
   const [visibleUpdate, setVisibleUpdate] = useState(false);
-  const [textNo, onChangeTextNo] = useState("1258392334");
-  const [textName, onChangeTextName] = useState("Guest User");
-  const [textEmail, onChangeTextEmail] = useState("Guest User@gmail.com");
+  const [mobile, onChangeMobile] = useState("1258392334");
+  const [name, onChangeName] = useState("Guest User");
+  const [email, onChangeEmail] = useState("Guest User@gmail.com");
 
   const [visible, setVisible] = useState(false);
+
+  // GET USER PROFILE INFORMATION FROM LOCAL STORAGE
+  const [userProfile, setUserProfile] = useState('')
+
+  useEffect(()=>{
+    fetchUserProfile();
+  },[])
+
+  const fetchUserProfile = async()=>{
+    let profileData = await getUserProfile();
+    setUserProfile(profileData);
+    let Mobile = profileData?.mobile.substr(3,profileData?.mobile?.length)
+    onChangeMobile(Mobile);
+    onChangeName(profileData?.name);
+    onChangeEmail(profileData?.email);
+  }
+    // ----GET USER PROFILE INFORMATION END----
+
 
   const toggleClose = () => {
     setVisible(!visible);
@@ -206,6 +227,49 @@ export default function EditProfileScreen(props) {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+
+  const handleUpdate = async() => {
+    if (!name) {
+      alert('Please enter your name.');
+      return;
+    }
+
+    if (!mobile) {
+      alert('Please enter your mobile number.');
+      return;
+    }
+
+    if (!email) {
+      alert('Please enter your email address.');
+      return;
+    }
+
+    if (!/^[a-zA-Z ]+$/.test(name)) {
+      alert('Invalid name. Only alphabets and spaces are allowed.');
+      return;
+    }
+
+    if (!/^\d{10}$/.test(mobile)) {
+      alert('Invalid mobile number. It should be a 10-digit number.');
+      return;
+    }
+
+    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      alert('Invalid email address.');
+      return;
+    }
+    console.log("#############################", name, mobile, email)
+    try{
+      await saveUser({ name, mobile:`+91${mobile}`, email });
+      await AsyncStorage.setItem('userDetails', JSON.stringify({ name,  mobile: `+91${mobile}`, email }));
+      setVisibleUpdate(true);
+    }catch(e){
+      console.log("profile edit error:", e)
+      alert('Unable to edit profile, Try again later!')
+    }
+    
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
@@ -416,9 +480,9 @@ export default function EditProfileScreen(props) {
           <TextInput
             placeholder={tr("enterName")}
             placeholderTextColor={Colors.grey}
-            onChangeText={onChangeTextName}
+            onChangeText={onChangeName}
             selectionColor={Colors.primary}
-            value={textName}
+            value={name}
             style={{
               ...Fonts.SemiBold16Grey,
               flex: 9.3,
@@ -451,10 +515,10 @@ export default function EditProfileScreen(props) {
           <TextInput
             placeholder={tr("enterEmail")}
             placeholderTextColor={Colors.grey}
-            onChangeText={onChangeTextEmail}
+            onChangeText={onChangeEmail}
             selectionColor={Colors.primary}
             keyboardType="email-address"
-            value={textEmail}
+            value={email}
             style={{
               ...Fonts.SemiBold16Grey,
               flex: 9.3,
@@ -487,10 +551,10 @@ export default function EditProfileScreen(props) {
           <TextInput
             placeholder={tr("enterMobile")}
             placeholderTextColor={Colors.grey}
-            onChangeText={onChangeTextNo}
+            onChangeText={onChangeMobile}
             selectionColor={Colors.primary}
             keyboardType="number-pad"
-            value={textNo}
+            value={mobile}
             maxLength={10}
             style={{
               ...Fonts.SemiBold16Grey,
@@ -503,9 +567,7 @@ export default function EditProfileScreen(props) {
       </ScrollView>
 
       <TouchableOpacity
-        onPress={() => {
-          setVisibleUpdate(true);
-        }}
+        onPress={handleUpdate}
         style={{
           ...Default.shadow,
           alignItems: "center",

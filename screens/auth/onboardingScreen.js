@@ -45,10 +45,10 @@ const OnboardingScreen = (props) => {
   ];
 
   const onDone = () => {
-    props.navigation.navigate("loginScreen");
+    props.navigation.navigate("registerScreen");
   };
   const onSkip = () => {
-    props.navigation.navigate("loginScreen");
+    props.navigation.navigate("registerScreen");
   };
 
   const renderNextButton = () => {
