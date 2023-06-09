@@ -77,8 +77,11 @@ const RegisterScreen = (props) => {
     }
     setVisible(true);
     try {
+      console.log(1);
       await saveUser({ name, mobile:`+91${mobile}`, email });
+      console.log(2);
       await AsyncStorage.setItem('userDetails', JSON.stringify({ name,  mobile: `+91${mobile}`, email }));
+      console.log(3);
       setTimeout(() => {
         setVisible(false);
         return props.navigation.navigate("verificationScreen", { mobile: `+91${mobile}` });
@@ -86,6 +89,7 @@ const RegisterScreen = (props) => {
 
     } catch (e) {
       // LOG THE ERROR HERE
+      console.log("Error in handleRegister :",e)
     }
 
   };

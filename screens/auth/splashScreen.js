@@ -9,12 +9,10 @@ import { Colors } from "../../constants/style";
 const SplashScreen = (props) => {
 
   const checkNavigation = async () => {
-    console.log("@@@@@@@@@@@@@@@@@@")
-alert(1)
     let navigateValue = "onboardingScreen";
     
     try {
-      // await AsyncStorage.removeItem('userDetails')
+      await AsyncStorage.removeItem('userDetails')
       let userData = await AsyncStorage.getItem('userDetails')
       if (!userData) {
         navigateValue = "onboardingScreen";

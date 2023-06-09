@@ -8,12 +8,13 @@ import {
   Image,
   FlatList,
   StyleSheet,
+  Button
 } from "react-native";
 import * as WebBrowser from 'expo-web-browser';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import Carousel from 'react-native-snap-carousel';
-
+import * as Updates from 'expo-updates';
 
 import { Colors, Fonts, Default } from "../constants/style";
 
@@ -27,12 +28,40 @@ import NewsCard from '../components/NewsCard';
 
 const VideoScreen = (props) => {
   const [breakingNews, setBreakingNews] = useState([])
+  const [isUpdateAvailable, setIsUpdateAvailable]=useState(false);
   const { t, i18n } = useTranslation();
 
   const isRtl = i18n.dir() == "rtl";
 
   function tr(key) {
     return t(`videoScreen:${key}`);
+  }
+
+  useEffect(()=>{
+    checkUpdate()
+  },[])
+
+  async function checkUpdate() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+
+      if (update.isAvailable) {
+        setIsUpdateAvailable(true);
+      }
+    } catch (error) {
+      // You can also add an alert() to see the error message in case of an error when fetching updates.
+      console.log(`Error fetching latest Expo update: ${error}`);
+    }
+  }
+
+  async function onFetchUpdateAsync() {
+    try {
+      await Updates.fetchUpdateAsync();
+      await Updates.reloadAsync();
+    } catch (error) {
+      // You can also add an alert() to see the error message in case of an error when fetching updates.
+      alert(`Error fetching latest Expo update: ${error}`);
+    }
   }
 
   useEffect(() => {
@@ -133,34 +162,6 @@ const VideoScreen = (props) => {
     );
   };
 
-  const data = [
-    {
-      source_name: 'bbc',
-      title: 'Donna Ongsiako, left for dead, survived a violent home invasion',
-      image_url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2023/05/21/ca30b52a-486f-4547-9919-e617103969a2/thumbnail/1200x630/3942baa04b35a4446ff1539b9236f7f3/ongsiako-donna.jpg',
-      content: 'Tiny Colts Neck, New Jersey, sits just 50 miles from New York City. But it might as well be a world away. In July 2013, this quiet community was rocked by news of a violent home invasion whe',
-      bottom_headline: "headline bottom",
-      bottom_text: "bottom test asdasdfasf"
-    },
-    {
-      source_name: 'bbc',
-      title: 'Nikola Jokic joins Zubin Mehenti on Sports',
-      image_url: 'https://i.ytimg.com/vi/JnRLLZ6ofEA/maxresdefault.jpg',
-      content: 'Nikola Jokic joins Zubin Mehenti on Sports',
-      bottom_headline: "headline bottom",
-      bottom_text: "bottom test asdasdfasf"
-    },
-  ]
-
-  // const {
-  //   source_name,
-  //   title,
-  //   image_url,
-  //   content,
-  //   bottom_headline,
-  //   bottom_text,
-  // } = this.props.data.news_obj;
-
 
   const renderItem = ({ item, index }) => {
     return (
@@ -171,6 +172,9 @@ const VideoScreen = (props) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
+      {isUpdateAvailable && <View>
+      <Button title="Fetch update" onPress={onFetchUpdateAsync} />
+    </View>}
       <View
         style={{
           paddingVertical: Default.fixPadding,
@@ -215,6 +219,7 @@ const VideoScreen = (props) => {
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
