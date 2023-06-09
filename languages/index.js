@@ -6,6 +6,7 @@ import en from "./en.json";
 import ar from "./ar.json";
 import ch from "./ch.json";
 import hi from "./hi.json";
+import mr from "./mr.json";
 import id from "./id.json";
 
 const STORAGE_KEY = "@APP:languageCode";
@@ -30,7 +31,7 @@ i18next
   .init({
     compatibilityJSON: "v3",
     fallbackLng: "en",
-    resources: { en, ar, ch, hi, id },
+    resources: { en, ar, ch, hi,mr, id },
     debug: true,
     interpolation: {
       escapeValue: false,

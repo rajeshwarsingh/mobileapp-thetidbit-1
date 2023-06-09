@@ -38,13 +38,21 @@ import ReaderModeScreen from "./screens/readerModeScreen";
 import TermsConditionScreen from "./screens/termsConditionScreen";
 import ChannelScreen from "./screens/channelScreen";
 import FollowChannelScreen from "./screens/followChannelScreen";
-import i18n from "./languages/index"; //don't remove this line
+import FavouriteScreen from "./screens/favouriteScreen";
+import NavigationService from './services/NavigationService';
+import {handleOSPushNotification} from './handler/handleOSPushNotification'
+
+// DO NOT REMOVE THIS LINE REQUIRED TO HANDLE LANGUAGE
+import i18n from "./languages/index"; 
+
+handleOSPushNotification();
 
 const Stack = createStackNavigator();
 
 const MainNavigation = (props) => {
+  
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={NavigationService.setNavigationRef}>
       <Stack.Navigator
         screenOptions={{
           ...TransitionPresets.SlideFromRightIOS,
@@ -78,6 +86,11 @@ const MainNavigation = (props) => {
         <Stack.Screen
           name="languageScreen"
           component={LanguageScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="favouriteScreen"
+          component={FavouriteScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

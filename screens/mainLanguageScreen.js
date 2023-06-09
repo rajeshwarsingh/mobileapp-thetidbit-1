@@ -89,10 +89,18 @@ const MainLanguageScreen = (props) => {
       </TouchableOpacity>
     );
   }
-
+  const getLangFullName = (name)=>{
+    let lang = {
+      "en":"english",
+      "hi":"hindi",
+      "mr":"marathi"
+    }
+    return lang[name]?lang[name]:'english';
+  }
   const updateAndReset = async () => {
     let profile = await getUserProfile();
-      let reqBody = { mobile:profile.mobile, prefLanguage: selectedLanguage };
+    let profMoile = profile.mobile.substr(0,1)!=="+"?`+91${profile.mobile}`:profile.mobile
+      let reqBody = { mobile:profMoile, prefLanguage: getLangFullName(selectedLanguage) };
       await updateUserPrefLang(reqBody);
       let userData = await AsyncStorage.getItem('userDetails')
       console.log("languange screen user data&&&&&&&&&&&&&&&&&&&&&&&&&&&", userData)

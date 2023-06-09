@@ -6,7 +6,7 @@ const config = {
     openApp:"ca-app-pub-9155008277126927/2020013620"
   },
   // apiUrl:'https://ttb-api-nextjs.vercel.app/api'
-  apiUrl:'https://ttb-api-nextjs-b6t8upjyz-ry-thetidbit.vercel.app/api'
+  apiUrl:'https://ttb-api-nextjs-one.vercel.app/api'
   
 }
 

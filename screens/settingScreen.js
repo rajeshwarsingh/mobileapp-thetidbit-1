@@ -122,6 +122,37 @@ const SettingScreen = (props) => {
             }}
           />
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("favouriteScreen",{setting:true})}
+          style={{
+            flexDirection: isRtl ? "row-reverse" : "row",
+            borderBottomColor: Colors.lightGrey,
+            paddingVertical: Default.fixPadding * 2,
+            borderBottomWidth: 1,
+          }}
+        >
+          <Text
+            style={{
+              ...Fonts.Medium16Black,
+              flex: 9,
+              textAlign: isRtl ? "right" : "left",
+              marginHorizontal: Default.fixPadding * 1.5,
+            }}
+          >
+            Preferred news
+            {/* {tr("selectFavourite")} */}
+          </Text>
+
+          <Ionicons
+            name={isRtl ? "chevron-back" : "chevron-forward"}
+            color={Colors.grey}
+            size={20}
+            style={{
+              flex: 1,
+              marginHorizontal: isRtl ? Default.fixPadding : 0,
+            }}
+          />
+        </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => props.navigation.navigate("readerModeScreen")}

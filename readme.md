@@ -74,11 +74,13 @@ How to implement deep linking in React Native with React Navigation v5 in 2021
 https://www.youtube.com/watch?v=s8YaclRknYw
 
 
+
 -------------------------------------------------------
 ## Open Mobile Application From The Browser
 https://vhudyma-blog.eu/open-mobile-application-from-the-browser/
 
 https://docs.expo.dev/guides/linking/#deep-links-on-android
+https://docs.expo.dev/guides/deep-linking/
 
 
 ------------------------------------------------------------
@@ -109,3 +111,14 @@ https://www.youtube.com/watch?v=myDDG54OvkE
 ## Integrating OPT Verification using firebase
 https://rnfirebase.io/auth/phone-auth //implemented this one
 https://firebase.google.com/docs/auth/web/phone-auth?hl=en&authuser=0&_gl=1*bud54s*_ga*MTA4MjUyOTExNC4xNjU1NjQ0ODE4*_ga_CW55HF8NVT*MTY4NTk1MTE2Mi4xMS4xLjE2ODU5NTE1NzkuMC4wLjA.#web-namespaced-api_6
+
+
+## ONE-SIGNAL PUSH NOTIFICATION
+https://documentation.onesignal.com/reference/push-channel-properties#attachments
+https://dashboard.onesignal.com/apps?page=1
+https://onesignal.com/blog/how-to-send-push-notifications-with-the-onesignal-rest-api/
+https://documentation.onesignal.com/docs/links
+https://documentation.onesignal.com/docs/customize-notification-icons
+
+
+## 

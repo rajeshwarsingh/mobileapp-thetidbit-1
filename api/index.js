@@ -145,9 +145,20 @@ export const getUser = async ({ mobile }) => {
 
 export const updateUserPrefLang = async (data) => {
   const source = axios.CancelToken.source();
-    const url = `${apiUrl}/prefLanguage`;
-    console.log("check saveuser api*************", url, data)
-    const response = await axios.post(url, data,{
+    const url = `${apiUrl}/users`;
+    console.log("check updateUserPrefLang api*************", url, data)
+    const response = await axios.put(url, data,{
+      cancelToken: source.token,
+    });
+    
+    return response.data;
+};
+
+export const updateUserFavNews = async (data) => {
+  console.log("data :", data)
+  const source = axios.CancelToken.source();
+    const url = `${apiUrl}/users`;
+    const response = await axios.put(url, data,{
       cancelToken: source.token,
     });
     

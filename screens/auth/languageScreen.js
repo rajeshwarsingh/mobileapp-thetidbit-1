@@ -13,15 +13,13 @@ import { useTranslation } from "react-i18next";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Modal from 'react-native-modal';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, Fonts, Default } from "../../constants/style";
 import Loader from "../../components/loader";
-import {updateUserPrefLang} from '../../api/index'
 
 const { height } = Dimensions.get("window");
 
 const LanguageScreen = (props) => {
-  const { mobile } = props.route.params;
+  const { mobile='' } = props.route.params;
   const { t, i18n } = useTranslation();
 
   const isRtl = i18n.dir() == "rtl";
@@ -45,11 +43,11 @@ const LanguageScreen = (props) => {
   ];
   const [selectedLanguage, setSelectedLanguage] = useState(tr("english"));
   const [visible, setVisible] = useState(false);
-  
+
   const [isAlertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
 
-  const handleLanguage = async() => {
+  const handleLanguage = async (language) => {
 
     if (!selectedLanguage) {
       setAlertMessage('Please enter your prefered language.');
@@ -57,25 +55,11 @@ const LanguageScreen = (props) => {
       return;
     }
 
-    try {
-      setVisible(true);
-      let reqBody = { mobile, prefLanguage: selectedLanguage };
-      await updateUserPrefLang(reqBody);
-      let userData = await AsyncStorage.getItem('userDetails')
-      console.log("languange screen user data&&&&&&&&&&&&&&&&&&&&&&&&&&&", userData)
-      userData = JSON.parse(userData)
-      userData.prefLanguage = selectedLanguage;
-      await AsyncStorage.setItem('userDetails', JSON.stringify(userData));
-      setTimeout(() => {
-        setVisible(false);
-        props.navigation.navigate("bottomTab");
-      }, 1500);
-    } catch (e) {
-      console.log('error in laguage saving', e)
-      setAlertMessage('EZrror in laguage saving');
-      setAlertVisible(false);
-      return;
-    }
+    setVisible(true);
+    setTimeout(() => {
+      setVisible(false);
+      props.navigation.navigate("favouriteScreen", { mobile, prefLanguage: language });
+    }, 1000);
   };
 
   const renderItemLanguage = ({ item }) => {
@@ -93,8 +77,7 @@ const LanguageScreen = (props) => {
           marginHorizontal: Default.fixPadding * 1.5,
         }}
         onPress={() => {
-          setSelectedLanguage(item.text);
-          handleLanguage();
+          handleLanguage(item.text);
         }}
       >
         <Text style={{ ...Fonts.SemiBold16Black }}>{item.text}</Text>
@@ -165,7 +148,7 @@ const LanguageScreen = (props) => {
             width='400'
             onPress={handleAlertClose}
             color="red" // Set the color of the button
-            style={{height:100, marginTop: 8, width: 20}} // Adjust the margin
+            style={{ height: 100, marginTop: 8, width: 20 }} // Adjust the margin
           />
         </View>
       </Modal>

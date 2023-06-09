@@ -19,6 +19,7 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.mobileappthetidbit",
       "supportsTablet": true
     },
     "android": {
@@ -57,9 +58,26 @@
     "extra": {
       "eas": {
         "projectId": "d387da48-df44-42c3-8ba7-32a994a8c149"
-      }
+      },
+      "oneSignalAppId": "e20037d9-067f-417f-b8f8-dc919bb0b6dd"
     },
-    "plugins": ["@react-native-firebase/app", "@react-native-firebase/auth"]
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ],
+      "./plugins/withAndroidVerifiedLinksWorkaround",
+      [
+        "expo-updates",
+        {
+          "username": "rajan23024"
+        }
+      ]
+    ]
   },
   "react-native-google-mobile-ads": {
     "android_app_id": "ca-app-pub-9155008277126927~8333991217"

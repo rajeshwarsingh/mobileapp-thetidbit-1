@@ -39,6 +39,12 @@
         "arabic": "Arabic",
         "spanish": "Spanish"
     },
+    "FavouriteScreenScreen": {
+        "selectFavourite": "Select your Favourite News",
+        "english": "English",
+        "hindi": "Hindi",
+        "marathi": "Marathi"
+    },
     "bottomTab": {
         "home": "Home",
         "category": "Category",
