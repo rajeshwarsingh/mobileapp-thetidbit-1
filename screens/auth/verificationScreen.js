@@ -23,7 +23,7 @@ import auth from '@react-native-firebase/auth';
 const { height, width } = Dimensions.get("window");
 
 const VerificationScreen = (props) => {
-  const { mobile,source } = props.route.params;
+  const { mobile="",source } = props?.route?.params || {};
   const { t, i18n } = useTranslation();
 
   const isRtl = i18n.dir() == "rtl";

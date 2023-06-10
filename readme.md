@@ -108,8 +108,8 @@ https://github.com/Gopalakrishnan-V/inshorts-clone/blob/master/src/components/Ne
 https://www.youtube.com/watch?v=myDDG54OvkE
 
 
-## Integrating OPT Verification using firebase
-https://rnfirebase.io/auth/phone-auth //implemented this one
+## Integrating OTP Verification using firebase
+https://rnfirebase.io/auth/phone-auth
 https://firebase.google.com/docs/auth/web/phone-auth?hl=en&authuser=0&_gl=1*bud54s*_ga*MTA4MjUyOTExNC4xNjU1NjQ0ODE4*_ga_CW55HF8NVT*MTY4NTk1MTE2Mi4xMS4xLjE2ODU5NTE1NzkuMC4wLjA.#web-namespaced-api_6
 
 

@@ -178,3 +178,19 @@ export const updateUserFavNews = async (data) => {
 
   return response.data;
 };
+
+export const getAppLatestVersion = async () => {
+  try {
+    const source = axios.CancelToken.source();
+    const url = `${apiUrl}/version`;
+
+    const response = await axios.get(url, { cancelToken: source.token });
+    return response.data;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log('Data fetching cancelled');
+    } else {
+      // Handle error
+    }
+  }
+};

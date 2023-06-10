@@ -15,20 +15,16 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import Carousel from 'react-native-snap-carousel';
 import * as Updates from 'expo-updates';
-
 import { Colors, Fonts, Default } from "../constants/style";
-
 import { getBreakingNews } from '../api/index';
-
 import { getScreenWidth, getScreenHeight } from '../helpers/DimensionsHelper';
-
-const SCREEN_WIDTH = getScreenWidth();
-
 import NewsCard from '../components/NewsCard';
+import ManualUpdate from '../components/ManualUpdate';
+const SCREEN_WIDTH = getScreenWidth();
 
 const VideoScreen = (props) => {
   const [breakingNews, setBreakingNews] = useState([])
-  const [isUpdateAvailable, setIsUpdateAvailable]=useState(false);
+  const [isUpdateAvailable, setIsUpdateAvailable] = useState(false);
   const { t, i18n } = useTranslation();
 
   const isRtl = i18n.dir() == "rtl";
@@ -37,9 +33,10 @@ const VideoScreen = (props) => {
     return t(`videoScreen:${key}`);
   }
 
-  useEffect(()=>{
+  // CODE TO CHECKING UPDATE USING EXPO EAS FOR UPDATE
+  useEffect(() => {
     checkUpdate()
-  },[])
+  }, [])
 
   async function checkUpdate() {
     try {
@@ -83,7 +80,7 @@ const VideoScreen = (props) => {
   }, []);
 
   const _handlePressButtonAsync = async (e, item) => {
-    let result = await WebBrowser.openBrowserAsync(item.sourceLink);
+    await WebBrowser.openBrowserAsync(item.sourceLink);
   };
 
   const renderItemBreakingNews = ({ item, index }) => {
@@ -173,8 +170,8 @@ const VideoScreen = (props) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
       {isUpdateAvailable && <View>
-      <Button title="Fetch update" onPress={onFetchUpdateAsync} />
-    </View>}
+        <Button title="Fetch update" onPress={onFetchUpdateAsync} />
+      </View>}
       <View
         style={{
           paddingVertical: Default.fixPadding,
@@ -190,14 +187,6 @@ const VideoScreen = (props) => {
           {tr("video")}
         </Text>
       </View>
-      {/* <FlatList
-        style={{ backgroundColor: Colors.white }}
-        data={breakingNews}
-        renderItem={renderItemBreakingNews}
-        keyExtractor={(item) => item.key}
-        showsVerticalScrollIndicator={false}
-      /> */}
-
       <View style={styles.container}>
         <Carousel
           data={breakingNews}
@@ -215,7 +204,7 @@ const VideoScreen = (props) => {
           windowSize={5}
         />
       </View>
-
+      <ManualUpdate />
     </SafeAreaView>
   );
 };

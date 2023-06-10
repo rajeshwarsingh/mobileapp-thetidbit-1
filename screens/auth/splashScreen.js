@@ -12,7 +12,7 @@ const SplashScreen = (props) => {
     let navigateValue = "onboardingScreen";
     
     try {
-      await AsyncStorage.removeItem('userDetails')
+      // await AsyncStorage.removeItem('userDetails')
       let userData = await AsyncStorage.getItem('userDetails')
       if (!userData) {
         navigateValue = "onboardingScreen";
@@ -34,6 +34,7 @@ const SplashScreen = (props) => {
 
   setTimeout(() => {
     checkNavigation();
+    // return props.navigation.push('verificationScreen');
   }, 2000);
 
   return (

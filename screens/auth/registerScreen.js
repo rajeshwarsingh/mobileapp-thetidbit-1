@@ -84,7 +84,7 @@ const RegisterScreen = (props) => {
       console.log(3);
       setTimeout(() => {
         setVisible(false);
-        return props.navigation.navigate("verificationScreen", { mobile: `+91${mobile}` });
+        return props.navigation.navigate("languageScreen", { mobile: `+91${mobile}` });
       }, 1500);
 
     } catch (e) {
