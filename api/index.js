@@ -39,6 +39,21 @@ export const getBreakingNews = async () => {
   }
 };
 
+export const getNewsApi = async () => {
+  try {
+    const source = axios.CancelToken.source();
+
+    let profile = await getUserProfile();
+    const url = `${apiUrl}/news-api?prefNews=${profile.prefNews}&prefLanguage=${profile.prefLanguage}`;
+    console.log("@@@@@@@@:",profile, url)
+    const response = await axios.get(url);
+    // console.log("####################################",response.data)
+    return response.data;
+  } catch (error) {
+    console.log('Error in getNewsApi',error)
+  }
+};
+
 export const getHealth = async () => {
   try {
     const source = axios.CancelToken.source();
@@ -130,16 +145,9 @@ export const saveExpoPushToken = async (token) => {
 };
 
 export const saveUser = async (data) => {
-  // return {}
-  const source = axios.CancelToken.source();
-  const url = `${apiUrl}/saveUser`;
-  console.log("@@@@@@@@@@@@@@@@@", url)
-  let profile = await getUserProfile();
-  const response = await axios.post(url, data, {
-    cancelToken: source.token
-
-  });
-
+  const url = `${apiUrl}/users`;
+  console.log("save user@@@@@@@@@@@:", url, data)
+  const response = await axios.post(url, data);
   return response.data;
 };
 

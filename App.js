@@ -40,12 +40,14 @@ import ChannelScreen from "./screens/channelScreen";
 import FollowChannelScreen from "./screens/followChannelScreen";
 import FavouriteScreen from "./screens/favouriteScreen";
 import NavigationService from './services/NavigationService';
-import {handleOSPushNotification} from './handler/handleOSPushNotification'
+import {handleOSPushNotification} from './handler/handleOSPushNotification';
+import {handleDeeplinkUrl} from "./handler/handleDeeplinkUrl";
 
 // DO NOT REMOVE THIS LINE REQUIRED TO HANDLE LANGUAGE
 import i18n from "./languages/index"; 
 
 handleOSPushNotification();
+handleDeeplinkUrl();
 
 const Stack = createStackNavigator();
 

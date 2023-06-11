@@ -78,10 +78,14 @@ const RegisterScreen = (props) => {
     setVisible(true);
     try {
       console.log(1);
-      await saveUser({ name, mobile:`+91${mobile}`, email });
-      console.log(2);
-      await AsyncStorage.setItem('userDetails', JSON.stringify({ name,  mobile: `+91${mobile}`, email }));
-      console.log(3);
+      let user = await saveUser({ name, mobile:`+91${mobile}`, email });
+      // CHECK USER ALREADY EXIST
+      if(user.message === "User already exists"){
+        await AsyncStorage.setItem('userDetails', JSON.stringify(user.data));
+      }else{
+        await AsyncStorage.setItem('userDetails', JSON.stringify({ name,  mobile: `+91${mobile}`, email }));
+      }
+      
       setTimeout(() => {
         setVisible(false);
         return props.navigation.navigate("languageScreen", { mobile: `+91${mobile}` });
@@ -259,134 +263,6 @@ const RegisterScreen = (props) => {
           >
             <Text style={{ ...Fonts.ExtraBold18White }}>{tr("register")}</Text>
           </TouchableOpacity>
-          
-
-          {/* <View
-            style={{
-              flexDirection: "row",
-              marginBottom: Default.fixPadding * 2,
-            }}
-          >
-            <View
-              style={{
-                flex: 1,
-                height: 1,
-                backgroundColor: Colors.grey,
-                alignSelf: "center",
-              }}
-            />
-
-            <Text
-              style={{
-                ...Fonts.Medium14Black,
-                textAlign: "center",
-                marginHorizontal: Default.fixPadding * 0.5,
-              }}
-            >
-              {tr("or")}
-            </Text>
-
-            <View
-              style={{
-                flex: 1,
-                height: 1,
-                backgroundColor: Colors.grey,
-                alignSelf: "center",
-              }}
-            />
-          </View> */}
-
-          {/* <TouchableOpacity
-            style={{
-              flexDirection: "row",
-            }}
-          >
-            <View
-              style={{
-                flex: 1.5,
-                backgroundColor: Colors.blue,
-                paddingVertical: Default.fixPadding * 1.5,
-                justifyContent: "center",
-                alignItems: "center",
-                borderTopLeftRadius: 10,
-                borderBottomLeftRadius: 10,
-              }}
-            >
-              <FontAwesome name="facebook" size={18} color={Colors.white} />
-            </View>
-            <View
-              style={{
-                flex: 8.5,
-                flexDirection: "row",
-                backgroundColor: Colors.lightBlue,
-                paddingVertical: Default.fixPadding * 1.5,
-                borderBottomRightRadius: 10,
-                borderTopRightRadius: 10,
-              }}
-            >
-              <View
-                style={{
-                  flex: 7,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ ...Fonts.Bold18White }}>Facebook</Text>
-              </View>
-              <View
-                style={{
-                  flex: 1.5,
-                }}
-              />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={{
-              flexDirection: "row",
-              marginTop: Default.fixPadding * 2,
-            }}
-          >
-            <View
-              style={{
-                flex: 1.5,
-                backgroundColor: Colors.red,
-                paddingVertical: Default.fixPadding * 1.5,
-                justifyContent: "center",
-                alignItems: "center",
-                borderTopLeftRadius: 10,
-                borderBottomLeftRadius: 10,
-              }}
-            >
-              <FontAwesome name="google" size={18} color={Colors.white} />
-            </View>
-            <View
-              style={{
-                flex: 8.5,
-                flexDirection: "row",
-                backgroundColor: Colors.lightRed,
-                paddingVertical: Default.fixPadding * 1.5,
-                borderBottomRightRadius: 10,
-                borderTopRightRadius: 10,
-              }}
-            >
-              <View
-                style={{
-                  flex: 7,
-
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ ...Fonts.Bold18White }}>Google</Text>
-              </View>
-              <View
-                style={{
-                  flex: 1.5,
-                }}
-              />
-            </View>
-          </TouchableOpacity> */}
         </View>
         <Modal isVisible={isAlertVisible} onBackdropPress={handleAlertClose}>
         <View style={{ backgroundColor: 'white', padding: 16 }}>

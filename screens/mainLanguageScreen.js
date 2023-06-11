@@ -105,7 +105,7 @@ const MainLanguageScreen = (props) => {
       let userData = await AsyncStorage.getItem('userDetails')
       console.log("languange screen user data&&&&&&&&&&&&&&&&&&&&&&&&&&&", userData)
       userData = JSON.parse(userData)
-      userData.prefLanguage = selectedLanguage;
+      userData.prefLanguage = getLangFullName(selectedLanguage);
       await AsyncStorage.setItem('userDetails', JSON.stringify(userData));
     
   }

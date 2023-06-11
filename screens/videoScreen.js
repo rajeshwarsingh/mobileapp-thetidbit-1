@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import Carousel from 'react-native-snap-carousel';
 import * as Updates from 'expo-updates';
 import { Colors, Fonts, Default } from "../constants/style";
-import { getBreakingNews } from '../api/index';
+import { getNewsApi } from '../api/index';
 import { getScreenWidth, getScreenHeight } from '../helpers/DimensionsHelper';
 import NewsCard from '../components/NewsCard';
 import ManualUpdate from '../components/ManualUpdate';
@@ -62,7 +62,7 @@ const VideoScreen = (props) => {
   }
 
   useEffect(() => {
-    getBreakingNews().then((response) => {
+    getNewsApi().then((response) => {
       let formatedBreakingNews = response?.data.map((news) => {
         return {
           source_name: news.author,
