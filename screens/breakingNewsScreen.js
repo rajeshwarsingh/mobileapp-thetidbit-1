@@ -14,7 +14,7 @@ import * as WebBrowser from 'expo-web-browser';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import { Colors, Fonts, Default } from "../constants/style";
-import { getBreakingNews } from '../api/index'
+import { getNewsApi } from '../api/index'
 
 const BreakingNewsScreen = (props) => {
   const [breakingNews, setBreakingNews] = useState([])
@@ -22,18 +22,6 @@ const BreakingNewsScreen = (props) => {
     props.navigation.navigate("homeScreen");
     return true;
   };
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
-
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
-  }, []);
-
-  useEffect(() => {
-    getBreakingNews().then((response) => {
-      setBreakingNews(response?.data);
-    });
-  }, []);
 
   const { t, i18n } = useTranslation();
 
@@ -42,63 +30,19 @@ const BreakingNewsScreen = (props) => {
   function tr(key) {
     return t(`breakingNewsScreen:${key}`);
   }
+  
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", backAction);
 
-  // const breakingNews = [
-  //   {
-  //     key: "1",
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscin elit.justo nunc ornare dui dignissim eget",
-  //     image: require("../assets/image/breaking1.png"),
-  //     logo: require("../assets/image/icon.png"),
-  //     time: "5 min ago",
-  //     video: false,
-  //   },
-  //   {
-  //     key: "2",
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscin elit.justo nunc ornare dui dignissim eget",
-  //     image: require("../assets/image/breaking2.png"),
-  //     logo: require("../assets/image/icon2.png"),
-  //     time: "15 min ago",
-  //     video: false,
-  //   },
-  //   {
-  //     key: "3",
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscin elit.justo nunc ornare dui dignissim eget",
-  //     image: require("../assets/image/breaking3.png"),
-  //     logo: require("../assets/image/icon3.png"),
-  //     time: "10 min ago",
-  //     video: true,
-  //   },
-  //   {
-  //     key: "4",
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscin elit.justo nunc ornare dui dignissim eget",
-  //     image: require("../assets/image/breaking4.png"),
-  //     logo: require("../assets/image/icon.png"),
-  //     time: "20 min ago",
-  //     video: false,
-  //   },
-  //   {
-  //     key: "5",
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscin elit.justo nunc ornare dui dignissim eget",
-  //     image: require("../assets/image/breaking5.png"),
-  //     logo: require("../assets/image/icon2.png"),
-  //     time: "25 min ago",
-  //     video: false,
-  //   },
-  //   {
-  //     key: "6",
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscin elit.justo nunc ornare dui dignissim eget",
-  //     image: require("../assets/image/breaking6.png"),
-  //     logo: require("../assets/image/icon3.png"),
-  //     time: "25 min ago",
-  //     video: false,
-  //   },
-  // ];
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  }, []);
+
+  useEffect(() => {
+    getNewsApi("",["General"]).then((response) => {
+      setBreakingNews(response?.data);
+    });
+  }, [i18n.language]);
   
   const renderItemBreakingNews = ({ item, index }) => {
     const isFirst = index === 0;

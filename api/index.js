@@ -39,15 +39,22 @@ export const getBreakingNews = async () => {
   }
 };
 
-export const getNewsApi = async () => {
+export const getNewsApi = async (home,prefNews) => {
   try {
     const source = axios.CancelToken.source();
 
     let profile = await getUserProfile();
-    const url = `${apiUrl}/news-api?prefNews=${profile.prefNews}&prefLanguage=${profile.prefLanguage}`;
-    console.log("@@@@@@@@:",profile, url)
+    let url;
+    url = `${apiUrl}/news-api?prefNews=${profile.prefNews}&prefLanguage=${profile.prefLanguage}`;
+    if(home){
+      url = `${apiUrl}/news-api?prefNews=${profile.prefNews}&prefLanguage=${profile.prefLanguage}&home=true`;
+    }else if(prefNews){
+      url = `${apiUrl}/news-api?prefNews=${prefNews}&prefLanguage=${profile.prefLanguage}`;
+    }else{
+      
+    }
+    console.log("getNewsApi********** ",url, home,prefNews)
     const response = await axios.get(url);
-    // console.log("####################################",response.data)
     return response.data;
   } catch (error) {
     console.log('Error in getNewsApi',error)
@@ -146,7 +153,6 @@ export const saveExpoPushToken = async (token) => {
 
 export const saveUser = async (data) => {
   const url = `${apiUrl}/users`;
-  console.log("save user@@@@@@@@@@@:", url, data)
   const response = await axios.post(url, data);
   return response.data;
 };
@@ -168,7 +174,6 @@ export const getUser = async ({ mobile }) => {
 export const updateUserPrefLang = async (data) => {
   const source = axios.CancelToken.source();
   const url = `${apiUrl}/users`;
-  console.log("check updateUserPrefLang api*************", url, data)
   const response = await axios.put(url, data, {
     cancelToken: source.token,
   });
@@ -177,7 +182,6 @@ export const updateUserPrefLang = async (data) => {
 };
 
 export const updateUserFavNews = async (data) => {
-  console.log("data :", data)
   const source = axios.CancelToken.source();
   const url = `${apiUrl}/users`;
   const response = await axios.put(url, data, {

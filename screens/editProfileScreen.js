@@ -258,7 +258,6 @@ export default function EditProfileScreen(props) {
       alert('Invalid email address.');
       return;
     }
-    console.log("#############################", name, mobile, email)
     try{
       await saveUser({ name, mobile:`+91${mobile}`, email });
       await AsyncStorage.setItem('userDetails', JSON.stringify({ name,  mobile: `+91${mobile}`, email }));

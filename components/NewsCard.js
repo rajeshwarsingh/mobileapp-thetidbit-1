@@ -112,7 +112,6 @@ export default function NewsCard(props) {
     setImageError(true);
   };
 
-  console.log("image_url :",image_url)
   return (
     <View style={styles.container}>
       <View style={styles.top}>

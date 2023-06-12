@@ -16,7 +16,6 @@ try {
       appId: '1:903405300293:web:c55227a2b8064da05d112c',
   });
 } catch (err) {
-  console.log("###################,err")
   // ignore app already initialized error in snack
 }
 

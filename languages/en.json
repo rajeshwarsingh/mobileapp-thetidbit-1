@@ -1,9 +1,12 @@
 {
     "onboardingScreen": {
         "title1": "Get daily update",
-        "title2": "Get live news",
+        "title2": "Get quick news",
         "title3": "News from Trusted sources",
-        "description": "Lorem ipsum dolor sit amen, consectetur advising elite. Mattie ut aliquot egest nuns, Tellus. net's Maurist, et luctus dui nibh sem nullam donec.",
+        "description": "Stay informed with our Daily Update service. Get a curated summary of the latest news and trends delivered to you every day, saving you time and keeping you up-to-date.",
+        "description1": "Stay informed with our Daily Update service. Get a curated summary of the latest news and trends delivered to you every day, saving you time and keeping you up-to-date.",
+        "description2": "Get quick news updates in a nutshell. Stay up-to-date with concise and bite-sized news summaries that provide you with the essential information you need, delivered conveniently and efficiently.",
+        "description3": "Get news from trusted sources. Stay informed with reliable and accurate information from reputable news outlets, ensuring you have access to credible news and insights.",
         "next": "Next",
         "skip": "Skip"
     },

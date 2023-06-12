@@ -16,7 +16,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useTranslation } from "react-i18next";
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Fonts, Default } from "../constants/style";
-import { getNews, saveExpoPushToken } from '../api/index';
+import { getNewsApi, saveExpoPushToken } from '../api/index';
 import {BannerAds, InterstitialAds} from '../components/AdMobComponent';
 
 const HomeScreen = (props) => {
@@ -26,11 +26,8 @@ const HomeScreen = (props) => {
   const navigation = useNavigation();
   useEffect(() => {
     const handleNotification = (notification) => {
-      // Handle the notification as desired
-      // console.log('Notification received:', notification.request.content.body, notification.request.content.data,notification.request.content.title);
-      const url = notification?.request?.content?.data?.url
+      const url = notification?.request?.content?.data?.url;
       // Navigate to a specific screen when a notification is received
-      // alert(JSON.stringify(notification));
       _handlePressButtonAsync('', url);
     };
 
@@ -86,6 +83,14 @@ const HomeScreen = (props) => {
     getExpoPushToken();
   }, []);
 
+  const { t, i18n } = useTranslation();
+
+  const isRtl = i18n.dir() == "rtl";
+
+  function tr(key) {
+    return t(`homeScreen:${key}`);
+  }
+  
   // ----------------------------Notification END------------------------
 
   const [breakingNews, setBreakingNews] = useState([]);
@@ -96,25 +101,18 @@ const HomeScreen = (props) => {
 
   useEffect(() => {
 
-    getNews().then((response) => {
+    getNewsApi(true).then((response) => {
       setBreakingNews(response?.data?.breaking);
       setLocalNews(response.data.health);
       setNationalNews(response.data.entertainment);
       setWorldNews(response.data.technology);
       setPoliticsNews(response.data.business);
     });
-  }, []);
+   }, [i18n.language]);
 
-  const { t, i18n } = useTranslation();
-
-  const isRtl = i18n.dir() == "rtl";
-
-  function tr(key) {
-    return t(`homeScreen:${key}`);
-  }
 
   const _handlePressButtonAsync = async (e, link) => {
-    let result = await WebBrowser.openBrowserAsync(link);
+    await WebBrowser.openBrowserAsync(link);
   };
 
   const renderItemBreakingNews = ({ item, index }) => {
@@ -1062,14 +1060,14 @@ const HomeScreen = (props) => {
           showsHorizontalScrollIndicator={false}
         />
 
-        <FlatList
+        {/* <FlatList
           horizontal
           nestedScrollEnabled
           data={newsData}
           renderItem={renderItemNewsData}
           keyExtractor={(item) => item.key}
           showsHorizontalScrollIndicator={false}
-        />
+        /> */}
         <BannerAds/>
         {/* <InterstitialAds/> */}
 

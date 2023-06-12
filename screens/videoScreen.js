@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Text,
   View,
@@ -21,8 +21,10 @@ import { getScreenWidth, getScreenHeight } from '../helpers/DimensionsHelper';
 import NewsCard from '../components/NewsCard';
 import ManualUpdate from '../components/ManualUpdate';
 const SCREEN_WIDTH = getScreenWidth();
+import NavigationContext from '../components/NavigationContext';
 
 const VideoScreen = (props) => {
+  const { category } = useContext(NavigationContext);
   const [breakingNews, setBreakingNews] = useState([])
   const [isUpdateAvailable, setIsUpdateAvailable] = useState(false);
   const { t, i18n } = useTranslation();
@@ -77,7 +79,7 @@ const VideoScreen = (props) => {
       })
       setBreakingNews(formatedBreakingNews);
     });
-  }, []);
+  }, [i18n.language,category]);
 
   const _handlePressButtonAsync = async (e, item) => {
     await WebBrowser.openBrowserAsync(item.sourceLink);

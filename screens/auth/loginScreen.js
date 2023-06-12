@@ -32,7 +32,6 @@ const LoginScreen = (props) => {
   const [mobile, setMobile] = useState("");
 
   const handleLogin = async() => {
-    // console.log("@@@@@@@@@@@@@@@@mobile :", mobile)
     if (!mobile) {
       alert('Please enter your mobile number.');
       return;

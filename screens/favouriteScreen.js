@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useTranslation } from "react-i18next";
 import { View, Text, Button , Image, FlatList, TouchableOpacity, Dimensions, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -6,6 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, Fonts, Default } from "../constants/style";
+import NavigationContext from '../components/NavigationContext';
 // import Loader from "../../components/loader";
 import Loader from "../components/loader";
 import {updateUserFavNews} from '../api/index'
@@ -13,6 +14,7 @@ const { height } = Dimensions.get("window");
 
 const FavouriteScreenScreen = (props) => {
   // setting
+  const { category,updateCategory } = useContext(NavigationContext);
     let { mobile='', prefLanguage="",setting=false } = props.route.params;
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -35,15 +37,12 @@ const FavouriteScreenScreen = (props) => {
 
     if (isSelected) {
       updatedCategories = selectedCategories.filter((item) => {
-        // console.log("################11", iteitem.name , category.namem)
         return (item.id !== category.id)
 
       });
     } else {
       updatedCategories = [...selectedCategories, category];
     }
-    console.log('selectedCategories**************', updatedCategories)
-    console.log('UPDATEED**************', updatedCategories)
     setSelectedCategories(updatedCategories);
   };
 
@@ -98,7 +97,7 @@ const FavouriteScreenScreen = (props) => {
       userData.prefLanguage = prefLanguage;
       userData.prefNews=prefNews;
       await AsyncStorage.setItem('userDetails', JSON.stringify(userData));
-
+      updateCategory(prefNews)
       setTimeout(() => {
         setVisible(false);
         return props.navigation.navigate("bottomTab");

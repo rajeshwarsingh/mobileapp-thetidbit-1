@@ -13,29 +13,13 @@ import * as WebBrowser from 'expo-web-browser';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import { Colors, Fonts, Default } from "../constants/style";
-import { getTechnology } from '../api/index';
+import { getNewsApi } from '../api/index';
 
 const WorldNewsScreen = (props) => {
   const [worldNews, setWorldNews] = useState([])
   const backAction = () => {
     props.navigation.navigate("homeScreen");
     return true;
-  };
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
-
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
-  }, []);
-
-  useEffect(() => {
-    getTechnology().then((response) => {
-      setWorldNews(response?.data);
-    });
-  }, []);
-
-  const _handlePressButtonAsync = async (e, item) => {
-    let result = await WebBrowser.openBrowserAsync(item.sourceLink);
   };
 
   const { t, i18n } = useTranslation();
@@ -45,6 +29,25 @@ const WorldNewsScreen = (props) => {
   function tr(key) {
     return t(`worldNewsScreen:${key}`);
   }
+  
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  }, []);
+
+  useEffect(() => {
+    getNewsApi("",["Sports"]).then((response) => {
+      setWorldNews(response?.data);
+    });
+  }, [i18n.language]);
+
+  const _handlePressButtonAsync = async (e, item) => {
+    let result = await WebBrowser.openBrowserAsync(item.sourceLink);
+  };
+
+
 
   // const worldNews = [
   //   {

@@ -42,6 +42,7 @@ import FavouriteScreen from "./screens/favouriteScreen";
 import NavigationService from './services/NavigationService';
 import {handleOSPushNotification} from './handler/handleOSPushNotification';
 import {handleDeeplinkUrl} from "./handler/handleDeeplinkUrl";
+import { NavigationProvider } from './components/NavigationContext';
 
 // DO NOT REMOVE THIS LINE REQUIRED TO HANDLE LANGUAGE
 import i18n from "./languages/index"; 
@@ -54,6 +55,7 @@ const Stack = createStackNavigator();
 const MainNavigation = (props) => {
   
   return (
+    <NavigationProvider>
     <NavigationContainer ref={NavigationService.setNavigationRef}>
       <Stack.Navigator
         screenOptions={{
@@ -220,6 +222,7 @@ const MainNavigation = (props) => {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </NavigationProvider>
   );
 };
 const ReloadAppOnLanguageChange = withTranslation("translation", {

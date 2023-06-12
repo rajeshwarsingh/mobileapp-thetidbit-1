@@ -46,7 +46,8 @@ const SplashScreen = (props) => {
         alignItems: "center",
       }}
     >
-      <Image style={{ width: screenWidth, height: screenHeight }} source={require("../../assets/splash.png")} />
+      <Image style={{ width: screenWidth, height: screenHeight }} source={require("../../assets/splash1.jpg")} />
+      {/* <Image style={{ width: screenWidth, height: screenHeight }} source={require("../../assets/splash.png")} /> */}
     </SafeAreaView>
   );
 };

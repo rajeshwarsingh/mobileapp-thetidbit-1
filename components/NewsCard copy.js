@@ -108,7 +108,6 @@ export default class NewsCard extends Component {
       alert(1)
       this.setState({imageError:true});
     };
-console.log("@@@@@@@@@@@@@@@@@@@@@@@",this.state.imageError)
     return (
       <View style={styles.container}>
         <View style={styles.top}>

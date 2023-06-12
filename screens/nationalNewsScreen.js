@@ -13,7 +13,7 @@ import * as WebBrowser from 'expo-web-browser';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import { Colors, Fonts, Default } from "../constants/style";
-import { getEntertainment } from '../api/index'
+import { getNewsApi } from '../api/index'
 
 const NationalNewsScreen = (props) => {
   const [nationalNews, setNationalNews] = useState([])
@@ -28,16 +28,6 @@ const NationalNewsScreen = (props) => {
       BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
 
-  useEffect(() => {
-    getEntertainment().then((response) => {
-      setNationalNews(response?.data);
-    });
-  }, []);
-
-  const _handlePressButtonAsync = async (e,item) => {
-    let result = await WebBrowser.openBrowserAsync(item.sourceLink);
-  };
-
   const { t, i18n } = useTranslation();
 
   const isRtl = i18n.dir() == "rtl";
@@ -45,6 +35,18 @@ const NationalNewsScreen = (props) => {
   function tr(key) {
     return t(`nationalNewsScreen:${key}`);
   }
+
+  useEffect(() => {
+    getNewsApi("",["Entertainment"]).then((response) => {
+      setNationalNews(response?.data);
+    });
+  }, [i18n.language]);
+
+  const _handlePressButtonAsync = async (e,item) => {
+    let result = await WebBrowser.openBrowserAsync(item.sourceLink);
+  };
+
+
 
   // const nationalNews = [
   //   {

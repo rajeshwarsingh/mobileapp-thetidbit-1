@@ -13,7 +13,7 @@ import * as WebBrowser from 'expo-web-browser';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import { Colors, Fonts, Default } from "../constants/style";
-import { getHealth } from '../api/index';
+import { getNewsApi } from '../api/index';
 
 const LocalNewsScreen = (props) => {
   const [localNews, setLocalNews] = useState([])
@@ -22,18 +22,6 @@ const LocalNewsScreen = (props) => {
     props.navigation.goBack();
     return true;
   };
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
-
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
-  }, []);
-
-  useEffect(() => {
-    getHealth().then((response) => {
-      setLocalNews(response?.data);
-    });
-  }, []);
 
   const { t, i18n } = useTranslation();
 
@@ -42,6 +30,21 @@ const LocalNewsScreen = (props) => {
   function tr(key) {
     return t(`localNewsScreen:${key}`);
   }
+  
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  }, []);
+
+  useEffect(() => {
+    getNewsApi("",["Health"]).then((response) => {
+      setLocalNews(response?.data);
+    });
+  }, [i18n.language]);
+
+
 
   // const localNews = [
   //   {
