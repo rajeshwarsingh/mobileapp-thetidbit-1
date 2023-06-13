@@ -26,7 +26,7 @@ export async function handleOSPushNotification() {
     if (results.push && results.push.success) {
       console.log('Results of setting external user id push status:');
       console.log(results.push.success);
-      updateUser({ mobile: `+91${userData?.mobile}`, OSExternalUserId: `+91${userData?.mobile}` });
+      updateUser({ mobile: userData?.mobile, OSExternalUserId: userData?.mobile });
     }
 
     // Verify the email is set or check that the results have an email success status
@@ -44,11 +44,8 @@ export async function handleOSPushNotification() {
 
   // HANDLING PUSH NOTIFICATION ON FORGROUND, WHEN APP IS ALREADY OPEN
   OneSignal.setNotificationWillShowInForegroundHandler(notificationReceivedEvent => {
-    console.log("OneSignal: notification will show in foreground:", notificationReceivedEvent);
     let notification = notificationReceivedEvent.getNotification();
-    console.log("notification: ", notification);
     const data = notification.additionalData
-    console.log("additionalData: ", data);
     //Silence notification by calling complete() with no argument
     notificationReceivedEvent.complete(notification);
   });

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import 'expo-dev-client';
 import { InterstitialAd, AdEventType, BannerAd, TestIds, BannerAdSize, AppOpenAd } from 'react-native-google-mobile-ads';
-
+const { width } = Dimensions.get('window');
 import config from '../config';
-const { banner, interstitial, openApp } = config.admobAds;
 
+// AVAILABLE BANNERS
+// {"ADAPTIVE_BANNER": "ADAPTIVE_BANNER", "ANCHORED_ADAPTIVE_BANNER": "ANCHORED_ADAPTIVE_BANNER", 
+// "BANNER": "BANNER", "FULL_BANNER": "FULL_BANNER", "INLINE_ADAPTIVE_BANNER": "INLINE_ADAPTIVE_BANNER", "LARGE_BANNER": "LARGE_BANNER", "LEADERBOARD": "LEADERBOARD", "MEDIUM_RECTANGLE": "MEDIUM_RECTANGLE", "WIDE_SKYSCRAPER": "WIDE_SKYSCRAPER"}
+
+const { banner, interstitial, openApp } = config.admobAds;
 const interstitialAds = InterstitialAd.createForAdRequest(interstitial, {
   requestNonPersonalizedAdsOnly: true,
   keywords: ['fashion', 'clothing'],
@@ -14,12 +18,11 @@ const interstitialAds = InterstitialAd.createForAdRequest(interstitial, {
 export function BannerAds() {
 
   return (
-    <View style={styles.container}>
-      <BannerAd
-        size={BannerAdSize.BANNER}
-        unitId={banner}
-      />
-    </View>
+    <BannerAd
+      size={BannerAdSize.ADAPTIVE_BANNER}
+      unitId={banner}
+      styles={{ width: width }}
+    />
   );
 }
 
@@ -56,26 +59,5 @@ export function InterstitialAds() {
     return unsubscribe;
   }, []);
 
-  // No advert ready to show yet
-  // if (!loaded) {
-  //   return null;
-  // }
-
-  // return (
-  //   <Button
-  //     title="Show Interstitial"
-  //     onPress={() => {
-  //       interstitialAds.show();
-  //     }}
-  //   />
-  // );
   return null;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

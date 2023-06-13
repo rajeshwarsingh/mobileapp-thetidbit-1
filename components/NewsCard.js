@@ -13,7 +13,7 @@ import {
   FONT_SIZE_SMALL,
 } from '../constants/Dimens';
 import { GRAY, WHITE, DARK_GRAY, LIGHT_BLUE } from '../constants/Colors';
-import { momentCalendarConfig,FONT_REGULAR } from '../constants/Constants';
+import { momentCalendarConfig, FONT_REGULAR } from '../constants/Constants';
 import { BannerAds } from '../components/AdMobComponent';
 
 export default function NewsCard(props) {
@@ -86,7 +86,7 @@ export default function NewsCard(props) {
   }
 
   const options = { wordwrap: 400 };
-  const text = convert((content?content:description)?.substr(0, 400), options);
+  const text = convert((content ? content : description)?.substr(0, 400), options);
 
   const ShareAndReadme = () => {
     return (
@@ -120,7 +120,7 @@ export default function NewsCard(props) {
           <BannerAds />
         </View>
         {/* HANDLE IMAGE */}
-        {( image_url && !imageError) ? (
+        {(image_url && !imageError) ? (
           <Image
             source={{ uri: image_url }}
             style={{ flex: 1 }}
@@ -140,7 +140,7 @@ export default function NewsCard(props) {
 
       <View style={[styles.middle, styles.contentPadding]}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description}>{ text.replace(/\[.*\]$/, '')}</Text>
+        <Text style={styles.description}>{text.replace(/\[.*\]$/, '')}</Text>
         <ShareAndReadme />
         <Text style={styles.byLine} numberOfLines={1} ellipsizeMode="tail"> {getByLineText()}</Text>
       </View>
