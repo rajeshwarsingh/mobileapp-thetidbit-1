@@ -156,6 +156,16 @@ export const saveUser = async (data) => {
   const response = await axios.post(url, data);
   return response.data;
 };
+export const updateUser = async (data) => {
+  try{
+    const url = `${apiUrl}/users`;
+  const response = await axios.put(url, data);
+  return response.data;
+  }catch(e){
+    console.log("@@@@@@@@@@@@@@@@update user:",e,`${apiUrl}/users`,data)
+  }
+  
+};
 
 export const getUser = async ({ mobile }) => {
   const source = axios.CancelToken.source();

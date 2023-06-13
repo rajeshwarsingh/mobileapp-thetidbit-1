@@ -81,8 +81,8 @@ const VideoScreen = (props) => {
         }
       })
       setBreakingNews(formatedBreakingNews);
-      
-    });
+
+    }).catch((reason)=>console.log("Error in videoscreen api:",reason));
   }, [i18n.language, category]);
 
   const _handlePressButtonAsync = async (e, item) => {
