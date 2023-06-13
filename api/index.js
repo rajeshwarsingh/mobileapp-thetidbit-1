@@ -53,7 +53,7 @@ export const getNewsApi = async (home,prefNews) => {
     }else{
       
     }
-    console.log("getNewsApi********** ",url, home,prefNews)
+    
     const response = await axios.get(url);
     return response.data;
   } catch (error) {

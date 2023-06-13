@@ -13,7 +13,6 @@ You should also look at the breaking changes from a release that you skipped:
 >adb uninstall com.mobileappthetidbit
 >npx react-native run-android --variant=release
 
-
 ## I am using managed workflow for this project Means not /android or /Ios Folder in it
 
 UI Library Used : https://callstack.github.io/react-native-paper/radio-button.html

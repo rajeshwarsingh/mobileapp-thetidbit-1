@@ -214,7 +214,7 @@ const NationalNewsScreen = (props) => {
             }}
           >
             <View>
-            <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }} style={{ width: 375, height: 186 }} />
+            <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} style={{ width: 375, height: 186 }} />
               <View
                 style={{
                   position: "absolute",

@@ -77,7 +77,6 @@ const RegisterScreen = (props) => {
     }
     setVisible(true);
     try {
-      console.log(1);
       let user = await saveUser({ name, mobile:`+91${mobile}`, email });
       // CHECK USER ALREADY EXIST
       if(user.message === "User already exists"){

@@ -7,7 +7,6 @@ import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, Fonts, Default } from "../constants/style";
 import NavigationContext from '../components/NavigationContext';
-// import Loader from "../../components/loader";
 import Loader from "../components/loader";
 import {updateUserFavNews} from '../api/index'
 const { height } = Dimensions.get("window");

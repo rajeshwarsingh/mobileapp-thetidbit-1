@@ -436,7 +436,7 @@ export default function EditProfileScreen(props) {
               source={{ uri: pickedImage }}
             />
           )}
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => setVisible(true)}
             style={{
               position: "absolute",
@@ -452,7 +452,7 @@ export default function EditProfileScreen(props) {
             <Text style={{ ...Fonts.SemiBold16Primary }}>
               {tr("changeImage")}
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
 
         <View

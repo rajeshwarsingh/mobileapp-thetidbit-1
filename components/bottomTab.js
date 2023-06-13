@@ -80,7 +80,7 @@ const BottomTab = () => {
         },
       }}
     >
-          <Tab.Screen
+      <Tab.Screen
         name="videoScreen"
         component={VideoScreen}
         options={{
@@ -89,7 +89,7 @@ const BottomTab = () => {
           headerShown: false,
           tabBarIcon: ({ focused, size }) => (
             <Ionicons
-              name={"caret-forward-circle-outline"}
+              name={"newspaper-outline"}
               color={focused ? Colors.primary : Colors.grey}
               size={22}
             />

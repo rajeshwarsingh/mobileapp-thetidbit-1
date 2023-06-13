@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   StatusBar,
   Image,
-  FlatList,
   StyleSheet,
   Button
 } from "react-native";
@@ -22,11 +21,13 @@ import NewsCard from '../components/NewsCard';
 import ManualUpdate from '../components/ManualUpdate';
 const SCREEN_WIDTH = getScreenWidth();
 import NavigationContext from '../components/NavigationContext';
+import Loader from "../components/loader";
 
 const VideoScreen = (props) => {
   const { category } = useContext(NavigationContext);
   const [breakingNews, setBreakingNews] = useState([])
   const [isUpdateAvailable, setIsUpdateAvailable] = useState(false);
+  const [visible, setVisible] = useState(false);
   const { t, i18n } = useTranslation();
 
   const isRtl = i18n.dir() == "rtl";
@@ -64,8 +65,10 @@ const VideoScreen = (props) => {
   }
 
   useEffect(() => {
+    setVisible(true)
     getNewsApi().then((response) => {
       let formatedBreakingNews = response?.data.map((news) => {
+        setVisible(false);
         return {
           source_name: news.author,
           title: news.title,
@@ -78,8 +81,9 @@ const VideoScreen = (props) => {
         }
       })
       setBreakingNews(formatedBreakingNews);
+      
     });
-  }, [i18n.language,category]);
+  }, [i18n.language, category]);
 
   const _handlePressButtonAsync = async (e, item) => {
     await WebBrowser.openBrowserAsync(item.sourceLink);
@@ -103,7 +107,7 @@ const VideoScreen = (props) => {
           overflow: "hidden",
         }}
       >
-        <Image source={{ uri: item.image ? item.image : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }} style={{ width: 131, height: 148 }} />
+        <Image source={{ uri: item.image ? item.image : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} style={{ width: 131, height: 148 }} />
         <View
           style={{
             height: 30,
@@ -189,6 +193,7 @@ const VideoScreen = (props) => {
           {tr("video")}
         </Text>
       </View>
+      <Loader visible={visible} />
       <View style={styles.container}>
         <Carousel
           data={breakingNews}
@@ -233,4 +238,3 @@ const styles = StyleSheet.create({
 });
 
 export default VideoScreen;
-

@@ -17,7 +17,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Fonts, Default } from "../constants/style";
 import { getNewsApi, saveExpoPushToken } from '../api/index';
-import {BannerAds, InterstitialAds} from '../components/AdMobComponent';
+import { BannerAds, InterstitialAds } from '../components/AdMobComponent';
+import Loader from "../components/loader";
 
 const HomeScreen = (props) => {
 
@@ -90,7 +91,7 @@ const HomeScreen = (props) => {
   function tr(key) {
     return t(`homeScreen:${key}`);
   }
-  
+
   // ----------------------------Notification END------------------------
 
   const [breakingNews, setBreakingNews] = useState([]);
@@ -98,17 +99,19 @@ const HomeScreen = (props) => {
   const [nationalNews, setNationalNews] = useState([]);
   const [worldNews, setWorldNews] = useState([]);
   const [politicsNews, setPoliticsNews] = useState([]);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-
+    setVisible(true);
     getNewsApi(true).then((response) => {
       setBreakingNews(response?.data?.breaking);
       setLocalNews(response.data.health);
       setNationalNews(response.data.entertainment);
-      setWorldNews(response.data.technology);
-      setPoliticsNews(response.data.business);
+      setWorldNews(response.data.sports);
+      setPoliticsNews(response.data.technology);
+      setVisible(false);
     });
-   }, [i18n.language]);
+  }, [i18n.language]);
 
 
   const _handlePressButtonAsync = async (e, link) => {
@@ -178,7 +181,7 @@ const HomeScreen = (props) => {
               marginBottom: Default.fixPadding * 1.5,
             }}
           >
-            <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }} style={{ width: 263, height: 138 }} />
+            <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} style={{ width: 263, height: 138 }} />
             <View
               style={{
                 position: "absolute",
@@ -196,7 +199,7 @@ const HomeScreen = (props) => {
                 {item.title}
               </Text>
               <Image
-                source={{ uri: item.logo ? item.logo : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }}
+                source={{ uri: item.logo ? item.logo : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }}
                 style={{
                   alignSelf: isFirst ? "flex-start" : "flex-end",
                   margin: Default.fixPadding * 0.5,
@@ -376,7 +379,7 @@ const HomeScreen = (props) => {
             }}
           >
             <View>
-              <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }} style={{ width: 263, height: 138 }} />
+              <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} style={{ width: 263, height: 138 }} />
               <View
                 style={{
                   position: "absolute",
@@ -385,7 +388,7 @@ const HomeScreen = (props) => {
                   padding: Default.fixPadding,
                 }}
               >
-                <Image source={{ uri: item.logo ? item.logo : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }}
+                <Image source={{ uri: item.logo ? item.logo : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }}
                 />
               </View>
             </View>
@@ -541,7 +544,7 @@ const HomeScreen = (props) => {
             }}
           >
             <View>
-              <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }} style={{ width: 263, height: 138 }} />
+              <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} style={{ width: 263, height: 138 }} />
               <View
                 style={{
                   position: "absolute",
@@ -550,7 +553,7 @@ const HomeScreen = (props) => {
                   padding: Default.fixPadding,
                 }}
               >
-                <Image source={{ uri: item.logo ? item.logo : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }}
+                <Image source={{ uri: item.logo ? item.logo : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }}
                 />
               </View>
             </View>
@@ -706,7 +709,7 @@ const HomeScreen = (props) => {
             }}
           >
             <View>
-              <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }} style={{ width: 263, height: 138 }} />
+              <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} style={{ width: 263, height: 138 }} />
               <View
                 style={{
                   position: "absolute",
@@ -715,7 +718,7 @@ const HomeScreen = (props) => {
                   padding: Default.fixPadding,
                 }}
               >
-                <Image source={{ uri: item.logo ? item.logo : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }} />
+                <Image source={{ uri: item.logo ? item.logo : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} />
               </View>
             </View>
             <View
@@ -870,7 +873,7 @@ const HomeScreen = (props) => {
             }}
           >
             <View>
-              <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }} style={{ width: 263, height: 138 }} />
+              <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} style={{ width: 263, height: 138 }} />
               <View
                 style={{
                   position: "absolute",
@@ -879,7 +882,7 @@ const HomeScreen = (props) => {
                   padding: Default.fixPadding,
                 }}
               >
-                <Image source={{ uri: item.logo ? item.logo : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }}
+                <Image source={{ uri: item.logo ? item.logo : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }}
                 />
               </View>
             </View>
@@ -984,8 +987,8 @@ const HomeScreen = (props) => {
           </TouchableOpacity>
         </View>
       </View>
-
-      <InterstitialAds/>
+      <Loader visible={visible} />
+      <InterstitialAds />
 
       <TouchableOpacity
         // onPress={() => props.navigation.navigate("searchScreen")}
@@ -1032,7 +1035,6 @@ const HomeScreen = (props) => {
         onDidFailToReceiveAdWithError={(error) => console.error('error******************** :',error)}
       /> */}
       </View>
-      
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
@@ -1050,7 +1052,7 @@ const HomeScreen = (props) => {
             <Text style={{ ...Fonts.Bold16Primary }}>{tr("seeAll")}</Text>
           </TouchableOpacity>
         </View>
-        
+
         <FlatList
           horizontal
           nestedScrollEnabled
@@ -1068,7 +1070,7 @@ const HomeScreen = (props) => {
           keyExtractor={(item) => item.key}
           showsHorizontalScrollIndicator={false}
         /> */}
-        <BannerAds/>
+        <BannerAds />
         {/* <InterstitialAds/> */}
 
         <View
@@ -1079,7 +1081,32 @@ const HomeScreen = (props) => {
             marginBottom: Default.fixPadding,
           }}
         >
-        
+          <Text style={{ ...Fonts.Bold18Black }}>Sports</Text>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("worldNewsScreen")}
+          >
+            <Text style={{ ...Fonts.Bold16Primary }}>{tr("seeAll")}</Text>
+          </TouchableOpacity>
+        </View>
+
+        <FlatList
+          horizontal
+          nestedScrollEnabled
+          data={worldNews}
+          renderItem={renderItemWorldNews}
+          keyExtractor={(item) => item.key}
+          showsHorizontalScrollIndicator={false}
+        />
+
+        <View
+          style={{
+            flexDirection: isRtl ? "row-reverse" : "row",
+            justifyContent: "space-between",
+            marginHorizontal: Default.fixPadding * 1.5,
+            marginBottom: Default.fixPadding,
+          }}
+        >
+
           <Text style={{ ...Fonts.Bold18Black }}>{tr("localNews")}</Text>
           <TouchableOpacity
             onPress={() => props.navigation.navigate("localNewsScreen")}
@@ -1130,32 +1157,7 @@ const HomeScreen = (props) => {
             marginBottom: Default.fixPadding,
           }}
         >
-          <Text style={{ ...Fonts.Bold18Black }}>{tr("worldNews")}</Text>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate("worldNewsScreen")}
-          >
-            <Text style={{ ...Fonts.Bold16Primary }}>{tr("seeAll")}</Text>
-          </TouchableOpacity>
-        </View>
-
-        <FlatList
-          horizontal
-          nestedScrollEnabled
-          data={worldNews}
-          renderItem={renderItemWorldNews}
-          keyExtractor={(item) => item.key}
-          showsHorizontalScrollIndicator={false}
-        />
-
-        <View
-          style={{
-            flexDirection: isRtl ? "row-reverse" : "row",
-            justifyContent: "space-between",
-            marginHorizontal: Default.fixPadding * 1.5,
-            marginBottom: Default.fixPadding,
-          }}
-        >
-          <Text style={{ ...Fonts.Bold18Black }}>{tr("politicsNews")}</Text>
+          <Text style={{ ...Fonts.Bold18Black }}>Technology</Text>
           <TouchableOpacity
             onPress={() => props.navigation.navigate("politicNewsScreen")}
           >

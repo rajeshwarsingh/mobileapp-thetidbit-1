@@ -13,7 +13,7 @@ import {
   FONT_SIZE_SMALL,
 } from '../constants/Dimens';
 import { GRAY, WHITE, DARK_GRAY, LIGHT_BLUE } from '../constants/Colors';
-import { momentCalendarConfig } from '../constants/Constants';
+import { momentCalendarConfig,FONT_REGULAR } from '../constants/Constants';
 import { BannerAds } from '../components/AdMobComponent';
 
 export default function NewsCard(props) {
@@ -45,6 +45,7 @@ export default function NewsCard(props) {
     title,
     image_url,
     content,
+    description,
     bottom_headline,
     bottom_text,
     sourceLink,
@@ -85,7 +86,7 @@ export default function NewsCard(props) {
   }
 
   const options = { wordwrap: 400 };
-  const text = convert(content?.substr(0, 400), options);
+  const text = convert((content?content:description)?.substr(0, 400), options);
 
   const ShareAndReadme = () => {
     return (
@@ -139,7 +140,7 @@ export default function NewsCard(props) {
 
       <View style={[styles.middle, styles.contentPadding]}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description}>{text}</Text>
+        <Text style={styles.description}>{ text.replace(/\[.*\]$/, '')}</Text>
         <ShareAndReadme />
         <Text style={styles.byLine} numberOfLines={1} ellipsizeMode="tail"> {getByLineText()}</Text>
       </View>
@@ -171,9 +172,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   title: {
-    // fontFamily: FONT_REGULAR,
+    fontFamily: 'Roboto-Regular',
     fontWeight: '400',
-    fontSize: FONT_SIZE_EXTRA_LARGE,
+    fontSize: 19,
     marginTop: 12,
   },
   description: {

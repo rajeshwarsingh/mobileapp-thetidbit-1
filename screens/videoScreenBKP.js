@@ -52,7 +52,7 @@ const VideoScreen = (props) => {
           overflow: "hidden",
         }}
       >
-        <Image source={{ uri: item.image ? item.image : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }} style={{ width: 131, height: 148 }} />
+        <Image source={{ uri: item.image ? item.image : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} style={{ width: 131, height: 148 }} />
          <View
           style={{
             height: 30,

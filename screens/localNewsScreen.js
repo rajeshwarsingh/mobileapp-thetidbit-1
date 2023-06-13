@@ -44,65 +44,6 @@ const LocalNewsScreen = (props) => {
     });
   }, [i18n.language]);
 
-
-
-  // const localNews = [
-  //   {
-  //     key: "1",
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscin elit.justo nunc ornare dui dignissim eget",
-  //     image: require("../assets/image/image1.png"),
-  //     logo: require("../assets/image/icon.png"),
-  //     time: "5 min ago",
-  //     video: false,
-  //   },
-  //   {
-  //     key: "2",
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscin elit.justo nunc ornare dui dignissim eget",
-  //     image: require("../assets/image/image2.png"),
-  //     logo: require("../assets/image/icon2.png"),
-  //     time: "15 min ago",
-  //     video: true,
-  //   },
-  //   {
-  //     key: "3",
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscin elit.justo nunc ornare dui dignissim eget",
-  //     image: require("../assets/image/image3.png"),
-  //     logo: require("../assets/image/icon3.png"),
-  //     time: "10 min ago",
-  //     video: false,
-  //   },
-  //   {
-  //     key: "4",
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscin elit.justo nunc ornare dui dignissim eget",
-  //     image: require("../assets/image/image4.png"),
-  //     logo: require("../assets/image/icon.png"),
-  //     time: "20 min ago",
-  //     video: false,
-  //   },
-  //   {
-  //     key: "5",
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscin elit.justo nunc ornare dui dignissim eget",
-  //     image: require("../assets/image/image5.png"),
-  //     logo: require("../assets/image/icon2.png"),
-  //     time: "25 min ago",
-  //     video: false,
-  //   },
-  //   {
-  //     key: "6",
-  //     description:
-  //       "Lorem ipsum dolor sit amet, consectetur adipiscin elit.justo nunc ornare dui dignissim eget",
-  //     image: require("../assets/image/image6.png"),
-  //     logo: require("../assets/image/icon3.png"),
-  //     time: "25 min ago",
-  //     video: false,
-  //   },
-  // ];
-
   const _handlePressButtonAsync = async (e, item) => {
     let result = await WebBrowser.openBrowserAsync(item.sourceLink);
   };
@@ -217,7 +158,7 @@ const LocalNewsScreen = (props) => {
             }}
           >
             <View>
-            <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }} style={{ width: 375, height: 186 }} />
+            <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} style={{ width: 375, height: 186 }} />
               <View
                 style={{
                   position: "absolute",
@@ -226,7 +167,7 @@ const LocalNewsScreen = (props) => {
                   padding: Default.fixPadding,
                 }}
               >
-                <Image source={{ uri: item.logo ? item.logo : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1HOpbOjRaShN8_MK1iFAc1ehpL9IaBcm-Hw&usqp=CAU' }} style={{ width: 131, height: 148 }} />
+                <Image source={{ uri: item.logo ? item.logo : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} style={{ width: 131, height: 148 }} />
               </View>
             </View>
             <View>
@@ -300,7 +241,7 @@ const LocalNewsScreen = (props) => {
             color={Colors.black}
           />
         </TouchableOpacity>
-        <Text style={Fonts.Bold18Black}>{tr("localNews")}</Text>
+        <Text style={Fonts.Bold18Black}>Health</Text>
       </View>
 
       <FlatList

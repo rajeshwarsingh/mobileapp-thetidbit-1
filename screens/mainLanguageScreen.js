@@ -102,8 +102,7 @@ const MainLanguageScreen = (props) => {
     let profMoile = profile.mobile.substr(0,1)!=="+"?`+91${profile.mobile}`:profile.mobile
       let reqBody = { mobile:profMoile, prefLanguage: getLangFullName(selectedLanguage) };
       await updateUserPrefLang(reqBody);
-      let userData = await AsyncStorage.getItem('userDetails')
-      console.log("languange screen user data&&&&&&&&&&&&&&&&&&&&&&&&&&&", userData)
+      let userData = await AsyncStorage.getItem('userDetails');
       userData = JSON.parse(userData)
       userData.prefLanguage = getLangFullName(selectedLanguage);
       await AsyncStorage.setItem('userDetails', JSON.stringify(userData));
