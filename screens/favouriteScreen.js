@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, Fonts, Default } from "../constants/style";
 import NavigationContext from '../components/NavigationContext';
 import Loader from "../components/loader";
-import {updateUserFavNews} from '../api/index'
+import {updateUser} from '../api/index'
 const { height } = Dimensions.get("window");
 
 const FavouriteScreenScreen = (props) => {
@@ -91,7 +91,7 @@ const FavouriteScreenScreen = (props) => {
 
       let reqBody = { mobile, prefLanguage, prefNews };
       
-      await updateUserFavNews(reqBody);
+      await updateUser(reqBody);
       
       userData.prefLanguage = prefLanguage;
       userData.prefNews=prefNews;

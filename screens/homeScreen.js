@@ -9,80 +9,16 @@ import {
   StatusBar,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import * as Notifications from 'expo-notifications'; // NOTIFICATION CODE
 import * as WebBrowser from 'expo-web-browser';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useTranslation } from "react-i18next";
-import { useNavigation } from '@react-navigation/native';
 import { Colors, Fonts, Default } from "../constants/style";
-import { getNewsApi, saveExpoPushToken } from '../api/index';
+import { getNewsApi, updateUser } from '../api/index';
 import { BannerAds, InterstitialAds } from '../components/AdMobComponent';
 import Loader from "../components/loader";
 
 const HomeScreen = (props) => {
-
-  // -------------------------Notifications Code start------------------
-
-  const navigation = useNavigation();
-  useEffect(() => {
-    const handleNotification = (notification) => {
-      const url = notification?.request?.content?.data?.url;
-      // Navigate to a specific screen when a notification is received
-      _handlePressButtonAsync('', url);
-    };
-
-    // Add the event listener when the screen comes into focus
-    const unsubscribe = navigation.addListener('focus', () => {
-      Notifications.addNotificationReceivedListener(handleNotification);
-    });
-
-    // Clean up the event listener when the screen goes out of focus
-    return () => {
-      unsubscribe();
-    };
-  }, [navigation]);
-
-  // HANDLE BACKGROUND NOTIFICATIN DATA
-  useEffect(() => {
-    const notificationResponseListener = Notifications.addNotificationResponseReceivedListener(response => {
-      const { notification } = response;
-      const url = notification?.request?.content?.data?.url
-      // Navigate to a specific screen when a notification is received
-      // alert(JSON.stringify(notification));
-      _handlePressButtonAsync('', url);
-    });
-
-    return () => {
-      Notifications.removeNotificationResponseReceivedListener(notificationResponseListener);
-    };
-  }, [navigation]);
-
-  const [expoPushToken, setExpoPushToken] = useState(null);
-
-  useEffect(() => {
-    const getExpoPushToken = async () => {
-      // Check if permission for notifications is granted
-      const { status: existingStatus } = await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-      if (existingStatus !== 'granted') {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-      }
-      if (finalStatus !== 'granted') {
-        console.log('Permission denied to receive notifications');
-        return;
-      }
-
-      // Get the Expo Push Token
-      const token = (await Notifications.getExpoPushTokenAsync()).data;
-      await saveExpoPushToken(token)
-      console.log('Expo Push Token:', token);
-
-    };
-
-    getExpoPushToken();
-  }, []);
 
   const { t, i18n } = useTranslation();
 
@@ -91,8 +27,6 @@ const HomeScreen = (props) => {
   function tr(key) {
     return t(`homeScreen:${key}`);
   }
-
-  // ----------------------------Notification END------------------------
 
   const [breakingNews, setBreakingNews] = useState([]);
   const [localNews, setLocalNews] = useState([]);

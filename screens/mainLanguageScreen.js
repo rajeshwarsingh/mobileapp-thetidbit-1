@@ -15,7 +15,7 @@ import { Colors, Fonts, Default } from "../constants/style";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Loader from "../components/loader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {updateUserPrefLang} from '../api/index'
+import {updateUser} from '../api/index'
 import {getUserProfile} from '../utils/index'
 const MainLanguageScreen = (props) => {
   const [visible, setVisible] = useState(false);
@@ -101,7 +101,7 @@ const MainLanguageScreen = (props) => {
     let profile = await getUserProfile();
     let profMoile = profile.mobile.substr(0,1)!=="+"?`+91${profile.mobile}`:profile.mobile
       let reqBody = { mobile:profMoile, prefLanguage: getLangFullName(selectedLanguage) };
-      await updateUserPrefLang(reqBody);
+      await updateUser(reqBody);
       let userData = await AsyncStorage.getItem('userDetails');
       userData = JSON.parse(userData)
       userData.prefLanguage = getLangFullName(selectedLanguage);

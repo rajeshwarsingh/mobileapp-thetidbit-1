@@ -17,6 +17,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import { useTranslation } from "react-i18next";
 import { Colors, Fonts, Default } from "../constants/style";
 import Stars from "react-native-stars";
+import * as Linking from "expo-linking";
 import { getUserProfile } from '../utils/index';
 
 const { width } = Dimensions.get("window");
@@ -293,8 +294,8 @@ const ProfileScreen = (props) => {
           />
         </TouchableOpacity>
 
-        {/* <TouchableOpacity
-          onPress={() => setStar(true)}
+        <TouchableOpacity
+          onPress={() => Linking.openURL("http://play.google.com/store/apps/details?id=com.mobileappthetidbit")}
           style={{
             flexDirection: isRtl ? "row-reverse" : "row",
             borderBottomColor: Colors.lightGrey,
@@ -330,7 +331,7 @@ const ProfileScreen = (props) => {
               marginHorizontal: Default.fixPadding * 1.5,
             }}
           />
-        </TouchableOpacity> */}
+        </TouchableOpacity>
 
         <Modal animationType="fade" transparent={true} visible={star}>
           <View

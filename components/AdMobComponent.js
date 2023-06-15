@@ -19,7 +19,7 @@ export function BannerAds() {
 
   return (
     <BannerAd
-      size={BannerAdSize.ADAPTIVE_BANNER}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       unitId={banner}
       styles={{ width: width }}
     />
