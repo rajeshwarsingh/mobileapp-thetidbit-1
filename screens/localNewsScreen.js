@@ -15,6 +15,8 @@ import { useTranslation } from "react-i18next";
 import { Colors, Fonts, Default } from "../constants/style";
 import { getNewsApi } from '../api/index';
 
+// THIS SCREEN GIVE HEALTH NEWS
+
 const LocalNewsScreen = (props) => {
   const [localNews, setLocalNews] = useState([])
 
@@ -30,7 +32,7 @@ const LocalNewsScreen = (props) => {
   function tr(key) {
     return t(`localNewsScreen:${key}`);
   }
-  
+
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
 
@@ -39,7 +41,7 @@ const LocalNewsScreen = (props) => {
   }, []);
 
   useEffect(() => {
-    getNewsApi("",["Health"]).then((response) => {
+    getNewsApi({ prefNews: "Health", newsType: "single" }).then((response) => {
       setLocalNews(response?.data);
     });
   }, [i18n.language]);
@@ -158,7 +160,7 @@ const LocalNewsScreen = (props) => {
             }}
           >
             <View>
-            <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} style={{ width: 375, height: 186 }} />
+              <Image source={{ uri: item.urlToImage ? item.urlToImage : 'https://res.cloudinary.com/dkydl3enp/image/upload/v1686501064/Picsart_23-06-11_21-57-08-972_yvzlrb.jpg' }} style={{ width: 375, height: 186 }} />
               <View
                 style={{
                   position: "absolute",

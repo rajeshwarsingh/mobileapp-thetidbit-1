@@ -15,6 +15,8 @@ import { useTranslation } from "react-i18next";
 import { Colors, Fonts, Default } from "../constants/style";
 import { getNewsApi } from '../api/index';
 
+// THIS SCREEN GIVE Technology NEWS
+
 const PoliticNewsScreen = (props) => {
   const [politicsNews, setPoliticsNews] = useState([])
   const backAction = () => {
@@ -38,7 +40,7 @@ const PoliticNewsScreen = (props) => {
   }, []);
 
   useEffect(() => {
-    getNewsApi("",["General"]).then((response) => {
+      getNewsApi({prefNews:"Technology", newsType:"single"}).then((response) => {
       setPoliticsNews(response?.data);
     });
    }, [i18n.language]);

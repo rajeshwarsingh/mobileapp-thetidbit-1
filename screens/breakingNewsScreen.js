@@ -39,7 +39,7 @@ const BreakingNewsScreen = (props) => {
   }, []);
 
   useEffect(() => {
-    getNewsApi("",["General"]).then((response) => {
+    getNewsApi({prefNews:"General", newsType:"single"}).then((response) => {
       setBreakingNews(response?.data);
     });
   }, [i18n.language]);

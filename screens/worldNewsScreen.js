@@ -15,6 +15,8 @@ import { useTranslation } from "react-i18next";
 import { Colors, Fonts, Default } from "../constants/style";
 import { getNewsApi } from '../api/index';
 
+  // THIS SCREEN GIVES Sports NEWS
+
 const WorldNewsScreen = (props) => {
   const [worldNews, setWorldNews] = useState([])
   const backAction = () => {
@@ -38,7 +40,7 @@ const WorldNewsScreen = (props) => {
   }, []);
 
   useEffect(() => {
-    getNewsApi("",["Sports"]).then((response) => {
+    getNewsApi({prefNews:"Sports", newsType:"single"}).then((response) => {
       setWorldNews(response?.data);
     });
   }, [i18n.language]);

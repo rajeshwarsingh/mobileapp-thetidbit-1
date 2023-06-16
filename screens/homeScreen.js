@@ -14,7 +14,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useTranslation } from "react-i18next";
 import { Colors, Fonts, Default } from "../constants/style";
-import { getNewsApi, updateUser } from '../api/index';
+import { getNewsApi } from '../api/index';
 import { BannerAds, InterstitialAds } from '../components/AdMobComponent';
 import Loader from "../components/loader";
 
@@ -37,7 +37,7 @@ const HomeScreen = (props) => {
 
   useEffect(() => {
     setVisible(true);
-    getNewsApi(true).then((response) => {
+    getNewsApi({newsType:'home'}).then((response) => {
       setBreakingNews(response?.data?.breaking);
       setLocalNews(response.data.health);
       setNationalNews(response.data.entertainment);

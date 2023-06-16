@@ -15,6 +15,7 @@ import {
 import { GRAY, WHITE, DARK_GRAY, LIGHT_BLUE } from '../constants/Colors';
 import { momentCalendarConfig, FONT_REGULAR } from '../constants/Constants';
 import { BannerAds } from '../components/AdMobComponent';
+import { getShortUrl } from '../api/index';
 
 export default function NewsCard(props) {
 
@@ -51,7 +52,8 @@ export default function NewsCard(props) {
     sourceLink,
   } = props.data;
 
-  const handleShare = () => {
+  const handleShare = async() => {
+    const shortLink = await getShortUrl(`https://www.thetidbit.in/sharenews?newsInx=${sourceLink}`);
     let imagePath = null;
     RNFetchBlob.config({
       fileCache: true,
@@ -68,7 +70,7 @@ export default function NewsCard(props) {
         var imageUrl = 'data:image/png;base64,' + base64Data;
         let shareImage = {
           title: title, //string
-          message: `${title} . Please install the app : https://www.thetidbit.in/sharenews?newsInx=${sourceLink}`, //string
+          message: `${title} . Please install the app : ${shortLink}`, //string
 
           url: imageUrl,
           // urls: [imageUrl, imageUrl], // eg.'http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg',

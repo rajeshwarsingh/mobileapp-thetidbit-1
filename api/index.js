@@ -34,22 +34,23 @@ export const getUser = async ({ mobile }) => {
 // USER API END
 
 // NEWS API START
-export const getNewsApi = async (home, prefNews) => {
+export const getNewsApi = async ({ prefNews, prefLanguage, newsType }) => {
   try {
     const source = axios.CancelToken.source();
     let profile = await getUserProfile();
-    let url;
-    url = `${apiUrl}/news-api?prefNews=${profile.prefNews}&prefLanguage=${profile.prefLanguage}`;
-    if (home) {
-      url = `${apiUrl}/news-api?prefNews=${profile.prefNews}&prefLanguage=${profile.prefLanguage}&home=true`;
-    } else if (prefNews) {
-      url = `${apiUrl}/news-api?prefNews=${prefNews}&prefLanguage=${profile.prefLanguage}`;
-    } else {
+    let profilePrefNews = (Array.isArray(profile?.prefNews)) ? profile?.prefNews.join(",") : profile?.prefNews
+    let url = `${apiUrl}/news-api`;
+    let prefLanguageParams = (prefLanguage || profile?.prefLanguage || 'english')
+    let newsTypeParams = (newsType || 'swapable')
+    let prefNewsParams = (prefNews || profilePrefNews || 'General')
 
-    }
-
-    console.log("***********************************", url)
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      params: {
+        prefLanguage: prefLanguageParams,
+        newsType: newsTypeParams,
+        prefNews: prefNewsParams
+      }
+    });
     return response.data;
   } catch (error) {
     console.log('Error in getNewsApi', error)
@@ -73,3 +74,18 @@ export const getAppLatestVersion = async () => {
   }
 };
 // END VERSION FOR APPUPDATE
+
+// URL SHORT API
+export const getShortUrl = async (longUrl ) => {
+  const url = `${apiUrl}/short-url`;
+  
+  const response = await axios.get(url, {
+    params: {
+      url: longUrl
+    }
+  });
+
+  return response?.data?.data;
+};
+
+// END URL SHORT API

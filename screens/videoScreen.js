@@ -66,7 +66,7 @@ const VideoScreen = (props) => {
 
   useEffect(() => {
     setVisible(true)
-    getNewsApi().then((response) => {
+    getNewsApi({newsType:'swapable'}).then((response) => {
       let formatedBreakingNews = response?.data.map((news) => {
         setVisible(false);
         return {

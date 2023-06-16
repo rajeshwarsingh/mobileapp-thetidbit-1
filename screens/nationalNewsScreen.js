@@ -13,7 +13,9 @@ import * as WebBrowser from 'expo-web-browser';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import { Colors, Fonts, Default } from "../constants/style";
-import { getNewsApi } from '../api/index'
+import { getNewsApi } from '../api/index';
+
+// THIS SCREEN GIVE Entertainment NEWS
 
 const NationalNewsScreen = (props) => {
   const [nationalNews, setNationalNews] = useState([])
@@ -37,7 +39,7 @@ const NationalNewsScreen = (props) => {
   }
 
   useEffect(() => {
-    getNewsApi("",["Entertainment"]).then((response) => {
+    getNewsApi({prefNews:"Entertainment", newsType:"single"}).then((response) => {
       setNationalNews(response?.data);
     });
   }, [i18n.language]);

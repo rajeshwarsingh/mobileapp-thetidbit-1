@@ -2,8 +2,8 @@
 import OneSignal from 'react-native-onesignal';
 import * as WebBrowser from 'expo-web-browser';
 import Constants from "expo-constants";
-import {getUserProfile} from "../utils/index"
-import {updateUser} from "../api/index"
+import { getUserProfile } from "../utils/index"
+import { updateUser } from "../api/index"
 
 // import { v4 as uuidv4 } from 'uuid';
 
@@ -16,9 +16,14 @@ const _handlePressButtonAsync = async (url) => {
 
 
 export async function handleOSPushNotification() {
- let userData= await getUserProfile()
+  let userData = await getUserProfile()
+
+ 
+
   OneSignal.setAppId(Constants.manifest.extra.oneSignalAppId);
-  
+
+  OneSignal.setLogLevel(6, 0);
+
   // SET USERID TO SEND NOTIFICATION TO SPECIFICE USER
   OneSignal.setExternalUserId(userData?.mobile, (results) => {
     // Push can be expected in almost every situation with a success status, but
@@ -26,6 +31,7 @@ export async function handleOSPushNotification() {
     if (results.push && results.push.success) {
       console.log('Results of setting external user id push status:');
       console.log(results.push.success);
+      console.log("#################################updateUser", { mobile: userData?.mobile, OSExternalUserId: userData?.mobile })
       updateUser({ mobile: userData?.mobile, OSExternalUserId: userData?.mobile });
     }
 
@@ -34,7 +40,7 @@ export async function handleOSPushNotification() {
     //   console.log('Results of setting external user id email status:');
     //   console.log(results.email.success);
     // }
-  
+
     // Verify the number is set or check that the results have an sms success status
     // if (results.sms && results.sms.success) {
     //   console.log('Results of setting external user id sms status:');
@@ -51,10 +57,10 @@ export async function handleOSPushNotification() {
   });
 
   // HANDLING WHEN NOTIFICAITON OPENED
-  OneSignal.setNotificationOpenedHandler(async(openedEvent) => {
+  OneSignal.setNotificationOpenedHandler(async (openedEvent) => {
     const { action, notification } = openedEvent;
-    const {url=""} = notification?.additionalData;
-    console.log('url:',url)
+    const { url = "" } = notification?.additionalData;
+    console.log('url:', url)
     await _handlePressButtonAsync(url);
     // NavigationService.navigate('SCREEN_NAME')
   });
